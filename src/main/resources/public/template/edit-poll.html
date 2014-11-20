@@ -1,0 +1,34 @@
+<h1><i18n ng-click="openMainPage()">poll.title</i18n></h1>
+
+<h2 ng-if="!poll._id">CREATE</h2>
+<h2 ng-if="poll._id">EDIT</h2>
+
+<article class="twelve cell">
+	<div class="two cell">
+		<image-select ng-model="category.icon" default="/img/illustrations/forum-default.png" thumbnails="[{ width: 290, height: 290 }]" class="absolute"></image-select>
+	</div>
+	<div class="ten cell height-two left-two">
+		<div class="absolute">
+			<div class="row">
+				<div class="twelve cell horizontal-spacing-twice">
+					<div class="row">
+						<label class="three cell"><i18n>poll.edit.title</i18n></label>
+						<input type="text" class="nine cell" ng-model="poll.title" required />
+					</div>
+                    <div class="row">
+                        <label class="three cell"><i18n>poll.edit.question</i18n></label>
+                        <input type="text" class="nine cell" ng-model="poll.question" required />
+                    </div>
+				</div>
+			</div>
+			<div class="row bottom-locked">
+				<div class="twelve cell horizontal-spacing-twice">
+					<button class="right-magnet" ng-click="saveCategoryEdit()"><i18n>poll.save</i18n></button>
+					<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelCategoryEdit()" />
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</article>

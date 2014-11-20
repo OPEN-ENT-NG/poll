@@ -1,3 +1,9 @@
 {
-	"poll.title": "Sondage"
+	"poll.title": "Sondage",
+	
+	"poll.edit.title": "Titre",
+	"poll.edit.question": "Question",
+	
+	"poll.create": "Créer",
+	"poll.save": "Sauvegarder"
 }

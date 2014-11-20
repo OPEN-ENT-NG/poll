@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<title>{{#i18n}}poll.title{{/i18n}}</title>
-    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    	<script src="{{#infra}}js/loader.js{{/infra}}" type="text/javascript" id="context"></script>
-    	<script src="/poll/public/js/model.js" type="text/javascript"></script>
-    	<script src="/poll/public/js/controller.js" type="text/javascript"></script>
-    	<script type="text/ng-template" id="empty"></script>
+        <title>{{#i18n}}poll.title{{/i18n}}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="{{#infra}}js/loader.js{{/infra}}" type="text/javascript" id="context"></script>
+        <script src="/poll/public/js/model.js" type="text/javascript"></script>
+        <script src="/poll/public/js/controller.js" type="text/javascript"></script>
+        <script type="text/ng-template" id="empty"></script>
     </head>
-    <body>
+    <body ng-controller="PollController">
         <portal>
-            <h1>Youpi !</h1>
-        </portal>
+            <div class="row" ng-if="found">
+                <container template="main" class="flexible nine right-magnet cell"></container>
+                <container template="polls" class="flexible three cell"></container>
+            </div>
+        </portal>l
     </body>
 </html>

@@ -1,0 +1,16 @@
+<h1><i18n ng-click="openMainPage()">poll.title</i18n></h1>
+
+<div class="patchwork">
+	<div class="twelve cell">
+		<div class="cell">
+			<button ng-click="newPoll()"><i18n></i18n></button>
+		</div>
+		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
+	</div>
+	<hr />
+	<div class="row" ng-repeat="poll in polls.all">
+		<article class="six cell">
+			<h1>[[poll.title]]</h1>
+		</article>
+	</div>
+</div>
