@@ -1,7 +1,5 @@
 package net.atos.entng.poll.controllers;
 
-import net.atos.entng.poll.service.PollServiceImpl;
-
 import org.entcore.common.mongodb.MongoDbControllerHelper;
 import org.vertx.java.core.http.HttpServerRequest;
 
@@ -24,7 +22,6 @@ public class PollController extends MongoDbControllerHelper {
 	 */
 	public PollController(String collection) {
 		super(collection);
-		this.setCrudService(new PollServiceImpl(collection));
 	}
 
 	@Get("")
@@ -35,7 +32,7 @@ public class PollController extends MongoDbControllerHelper {
 
 	@Override
 	@Get("/list")
-	@ApiDoc("Permet de liter l'ensemble des sondages")
+	@ApiDoc("Permet de lister l'ensemble des sondages")
 	@SecuredAction("poll.list")
 	public void list(HttpServerRequest request) {
 		super.list(request);

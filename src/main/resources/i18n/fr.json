@@ -1,9 +1,11 @@
 {
 	"poll.title": "Sondage",
 	
+	"poll.edit.head.create": "Creation d'un nouveau sondage",
+	"poll.edit.head.modify": "Modification d'un sondage",
 	"poll.edit.title": "Titre",
 	"poll.edit.question": "Question",
 	
-	"poll.create": "Créer",
-	"poll.save": "Sauvegarder"
+	"poll.new": "Nouveau sondage",
+	"poll.create": "Créer"
 }

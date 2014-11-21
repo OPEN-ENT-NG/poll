@@ -1,9 +1,11 @@
 {
 	"poll.title": "Poll",
 	
+	"poll.edit.head.create": "Create a new poll",
+	"poll.edit.head.modify": "Modify a poll",
 	"poll.edit.title": "Title",
 	"poll.edit.question": "Question",
 	
-	"poll.create": "Create",
-	"poll.save": "Save"
+	"poll.new": "New poll",
+	"poll.create": "Create"
 }

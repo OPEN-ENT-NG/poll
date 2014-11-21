@@ -1,19 +1,11 @@
-routes.define(function($routeProvider) {
-    $routeProvider.otherwise({
-        action : 'mainPage'
-    });
-});
 
-function PollController($scope, template, route) {
+function PollController($scope, template, model) {
     $scope.template = template;
-    $scope.found = true;
+    $scope.polls = model.polls;
+    $scope.me = model.me;
 
-    route({
-        mainPage : function() {
-            template.open('polls', 'polls');
-        }
-    });
-
+    template.open('polls', 'polls');
+    
     $scope.newPoll = function() {
         $scope.poll = new Poll();
         template.open('main', 'edit-poll');
@@ -28,7 +20,7 @@ function PollController($scope, template, route) {
         if ($scope.poll._id) {
             $scope.poll.save(function() {
                 $scope.poll.sync(function() {
-                    $scope.cancelCategoryEdit();
+                    $scope.cancelPollEdit();
                     $scope.$apply();
                 });
             });
@@ -38,8 +30,8 @@ function PollController($scope, template, route) {
         }
         template.close('main');
     };
-
-    $scope.openMainPage = function() {
+    
+    $scope.cancelPollEdit = function(){
         delete $scope.poll;
         template.close('main');
     };

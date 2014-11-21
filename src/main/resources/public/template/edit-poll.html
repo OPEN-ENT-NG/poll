@@ -1,7 +1,7 @@
-<h1><i18n ng-click="openMainPage()">poll.title</i18n></h1>
+<h1><i18n ng-click="cancelPollEdit()">poll.title</i18n></h1>
 
-<h2 ng-if="!poll._id">CREATE</h2>
-<h2 ng-if="poll._id">EDIT</h2>
+<h2 ng-if="!poll._id"><i18n>poll.edit.head.create</i18n></h2>
+<h2 ng-if="poll._id"><i18n>poll.edit.head.modify</i18n></h2>
 
 <article class="twelve cell">
 	<div class="two cell">
@@ -23,8 +23,8 @@
 			</div>
 			<div class="row bottom-locked">
 				<div class="twelve cell horizontal-spacing-twice">
-					<button class="right-magnet" ng-click="saveCategoryEdit()"><i18n>poll.save</i18n></button>
-					<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelCategoryEdit()" />
+					<button class="right-magnet" ng-click="savePoll()"><i18n>save</i18n></button>
+					<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
 				</div>
 			</div>
 		</div>

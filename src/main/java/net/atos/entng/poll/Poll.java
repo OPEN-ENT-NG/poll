@@ -23,8 +23,12 @@ public class Poll extends BaseServer {
 	@Override
 	public void start() {
 		super.start();
+
+		MongoDbConf conf = MongoDbConf.getInstance();
+		conf.setCollection(POLL_COLLECTION);
+		conf.setResourceIdLabel("id");
+
 		setDefaultResourceFilter(new ShareAndOwner());
-		MongoDbConf.getInstance().setCollection(POLL_COLLECTION);
 		addController(new PollController(POLL_COLLECTION));
 	}
 
