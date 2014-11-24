@@ -1,0 +1,41 @@
+<h1><i18n ng-click="openMainPage()">poll.title</i18n></h1>
+
+<div class="patchwork">
+	<div class="twelve cell">
+		<div class="cell">
+			<button ng-click="newPoll()"><i18n>poll.new</i18n></button>
+		</div>
+		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
+	</div>
+	<hr />
+	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)" ng-class="{ selected: p === poll }">
+        <div class="cell">
+            <img skin-src="/img/illustrations/forum-default.png" ng-if="(p.icon === undefined)" class="cell" />
+            <img ng-src="[[p.icon]]?thumbnail=120x120" ng-if="p.icon !== undefined" class="cell" />
+        </div>
+		<article class="six cell">
+			<h1>[[p.title]]</h1>
+            
+            <div class="small-hidden bottom-locked">
+                <behaviour name="manage" resource="p">
+                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
+                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
+                    <button><i18n>share</i18n></button>
+                </behaviour>
+            </div>
+		</article>
+	</div>
+</div>
+
+<!-- Allows to display a confirm dialog before deleting a poll -->
+<div ng-if="display.confirmDeletePoll">
+    <lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
+        <div class="row">
+            <i18n>poll.delete.confirm</i18n>
+        </div>
+        <div class="row">
+            <button class="right-magnet" ng-click="removePoll()"><i18n>remove</i18n></button>
+            <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
+        </div>
+    </lightbox>
+</div>

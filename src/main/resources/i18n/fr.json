@@ -6,6 +6,8 @@
 	"poll.edit.title": "Titre",
 	"poll.edit.question": "Question",
 	
+	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
+	
 	"poll.new": "Nouveau sondage",
 	"poll.create": "Créer"
 }

@@ -54,20 +54,6 @@ model.build = function() {
                 }
             }.bind(this));
         },
-        removeSelection: function(callback){
-            var counter = this.selection().length;
-            this.selection().forEach(function(item){
-                http().delete('/poll/' + item._id).done(function(){
-                    counter = counter - 1;
-                    if (counter === 0) {
-                        model.polls.sync();
-                        if(typeof callback === 'function'){
-                            callback();
-                        }
-                    }
-                });
-            });
-        },
         behaviours: 'poll'
     });
 }

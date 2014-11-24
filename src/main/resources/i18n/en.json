@@ -6,6 +6,8 @@
 	"poll.edit.title": "Title",
 	"poll.edit.question": "Question",
 	
+	"poll.delete.confirm": "Do you really want to delete this poll?",
+	
 	"poll.new": "New poll",
 	"poll.create": "Create"
 }
