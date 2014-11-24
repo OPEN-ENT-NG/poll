@@ -47,7 +47,7 @@ model.build = function() {
     
     this.collection(Poll, {
         sync: function(callback){
-            http().get('/poll/list').done(function(polls){
+            http().get('/poll/list/all').done(function(polls){
                 this.load(polls);
                 if(typeof callback === 'function'){
                     callback();

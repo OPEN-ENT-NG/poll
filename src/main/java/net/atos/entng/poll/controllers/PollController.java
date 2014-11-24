@@ -31,7 +31,7 @@ public class PollController extends MongoDbControllerHelper {
 	}
 
 	@Override
-	@Get("/list")
+	@Get("/list/all")
 	@ApiDoc("Permet de lister l'ensemble des sondages")
 	@SecuredAction("poll.list")
 	public void list(HttpServerRequest request) {
