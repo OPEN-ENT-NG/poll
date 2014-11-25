@@ -8,17 +8,18 @@ import fr.wseduc.rs.Delete;
 import fr.wseduc.rs.Get;
 import fr.wseduc.rs.Post;
 import fr.wseduc.rs.Put;
+import fr.wseduc.security.ActionType;
 import fr.wseduc.security.SecuredAction;
 
 /**
- * Controlleur pour gerer les routes des sondages.
+ * Controller to manage URL paths for polls.
  * @author Atos
  */
 public class PollController extends MongoDbControllerHelper {
 
 	/**
-	 * Constructeur par defaut.
-	 * @param collection collection MongoDB a requeter.
+	 * Default constructor.
+	 * @param collection MongoDB collection to request.
 	 */
 	public PollController(String collection) {
 		super(collection);
@@ -32,7 +33,7 @@ public class PollController extends MongoDbControllerHelper {
 
 	@Override
 	@Get("/list/all")
-	@ApiDoc("Permet de lister l'ensemble des sondages")
+	@ApiDoc("Allows to list all polls")
 	@SecuredAction("poll.list")
 	public void list(HttpServerRequest request) {
 		super.list(request);
@@ -40,7 +41,7 @@ public class PollController extends MongoDbControllerHelper {
 
 	@Override
 	@Post("")
-	@ApiDoc("Permet de creer un nouveau sondage")
+	@ApiDoc("Allows to create a new poll")
 	@SecuredAction("poll.create")
 	public void create(HttpServerRequest request) {
 		super.create(request);
@@ -48,26 +49,47 @@ public class PollController extends MongoDbControllerHelper {
 
 	@Override
 	@Get("/:id")
-	@ApiDoc("Permet de recuperer le sondage associe au l'identifiant passe en parametre")
-	@SecuredAction("poll.retrieve")
+	@ApiDoc("Allows to get a poll associted to the given identifier")
+	@SecuredAction(value = "poll.read", type = ActionType.RESOURCE)
 	public void retrieve(HttpServerRequest request) {
 		super.retrieve(request);
 	}
 
 	@Override
 	@Put("/:id")
-	@ApiDoc("Permet de mettre a jour le sondage associe au l'identifiant passe en parametre")
-	@SecuredAction("poll.update")
+	@ApiDoc("Allows to update a poll associted to the given identifier")
+	@SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
 	public void update(HttpServerRequest request) {
 		super.update(request);
 	}
 
 	@Override
 	@Delete("/:id")
-	@ApiDoc("Permet de supprimer le sondage associe au l'identifiant passe en parametre")
-	@SecuredAction("poll.delete")
+	@ApiDoc("Allows to delete a poll associted to the given identifier")
+	@SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
 	public void delete(HttpServerRequest request) {
 		super.delete(request);
+	}
+
+	@Get("/share/json/:id")
+	@ApiDoc("Allows to get the current sharing of the poll given by its identifier")
+	@SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
+	public void share(HttpServerRequest request) {
+		shareJson(request, false);
+	}
+
+	@Put("/share/json/:id")
+	@ApiDoc("Allows to update the current sharing of the poll given by its identifier")
+	@SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
+	public void sharePollSubmit(HttpServerRequest request) {
+		shareJsonSubmit(request, null);
+	}
+
+	@Put("/share/remove/:id")
+	@ApiDoc("Allows to remove the current sharing of the poll given by its identifier")
+	@SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
+	public void removeSharePoll(HttpServerRequest request) {
+		removeShare(request, false);
 	}
 
 }

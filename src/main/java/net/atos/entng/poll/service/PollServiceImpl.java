@@ -3,14 +3,14 @@ package net.atos.entng.poll.service;
 import org.entcore.common.service.impl.MongoDbCrudService;
 
 /**
- * Implementation par defaut de l'interface {@link PollService}.
+ * Default implementation of the interface {@link PollService}.
  * @author Atos
  */
 public class PollServiceImpl extends MongoDbCrudService implements PollService {
 
 	/**
-	 * Constructeur par defaut.
-	 * @param collection la collection MongoDB associee au sondage.
+	 * Default constructor.
+	 * @param collection MongoDB collection associated to polls.
 	 */
 	public PollServiceImpl(String collection) {
 		super(collection);

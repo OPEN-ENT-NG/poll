@@ -9,5 +9,10 @@
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	
 	"poll.new": "New poll",
-	"poll.create": "Create"
+	"poll.create": "Create",
+	
+	"poll.read": "Reader",
+	"poll.contrib": "Contributor",
+	"poll.manager": "Manager"
+	
 }

@@ -7,18 +7,18 @@ import org.entcore.common.http.filter.ShareAndOwner;
 import org.entcore.common.mongodb.MongoDbConf;
 
 /**
- * Classes serveur pour gerer les sondages. Cette classe represente le point d'entree de Vert.x pour ce module.
+ * Server to manage polls. This class is the entry point of the Vert.x module.
  * @author Atos
  */
 public class Poll extends BaseServer {
 
 	/**
-	 * Constante definissant la collection a utiliser dans MongoDB.
+	 * Constant to define the MongoDB collection to use with this module.
 	 */
 	public static final String POLL_COLLECTION = "poll";
 
 	/**
-	 * Point d'entree du module Vert.x
+	 * Entry point of the Vert.x module
 	 */
 	@Override
 	public void start() {

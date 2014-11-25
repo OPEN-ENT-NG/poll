@@ -9,5 +9,9 @@
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
 	
 	"poll.new": "Nouveau sondage",
-	"poll.create": "Créer"
+	"poll.create": "Créer",
+	
+	"poll.read": "Lecteur",
+	"poll.contrib": "Contributeur",
+	"poll.manager": "Gestionnaire"
 }

@@ -87,4 +87,13 @@ function PollController($scope, template, model) {
         delete $scope.display.confirmDeletePoll;
     };
     
+    /**
+     * Allows to open the "share" panel by setting the
+     * "$scope.display.showPanel" variable to "true".
+     */
+    $scope.sharePoll = function(poll, event){
+        $scope.poll = poll;
+        $scope.display.showPanel = true;
+        event.stopPropagation();
+    };
 }

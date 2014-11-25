@@ -2,13 +2,13 @@
 
 <div class="patchwork">
 	<div class="twelve cell">
-		<div class="cell">
+		<div workflow="poll.admin" class="cell">
 			<button ng-click="newPoll()"><i18n>poll.new</i18n></button>
 		</div>
 		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
 	</div>
 	<hr />
-	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)" ng-class="{ selected: p === poll }">
+	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)">
         <div class="cell">
             <img skin-src="/img/illustrations/forum-default.png" ng-if="(p.icon === undefined)" class="cell" />
             <img ng-src="[[p.icon]]?thumbnail=120x120" ng-if="p.icon !== undefined" class="cell" />
@@ -20,7 +20,7 @@
                 <behaviour name="manage" resource="p">
                     <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
                     <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
-                    <button><i18n>share</i18n></button>
+                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
                 </behaviour>
             </div>
 		</article>
@@ -37,5 +37,12 @@
             <button class="right-magnet" ng-click="removePoll()"><i18n>remove</i18n></button>
             <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
         </div>
+    </lightbox>
+</div>
+
+<!-- Allows to display the panel to manage share rights -->
+<div ng-if="display.showPanel">
+    <lightbox show="display.showPanel" on-close="display.showPanel = false;">
+        <share-panel app-prefix="'poll'" resources="poll"></share-panel>
     </lightbox>
 </div>

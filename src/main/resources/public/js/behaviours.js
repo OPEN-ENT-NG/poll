@@ -3,7 +3,10 @@ var pollBehaviours = {
 		manage: {
 			right: 'net-atos-entng-poll-controllers-PollController|delete'
 		}
-	}
+	},
+	workflow : {
+        admin : 'net-atos-entng-poll-controllers-PollController|create'
+    }
 };
 
 Behaviours.register('poll', {
@@ -40,6 +43,6 @@ Behaviours.register('poll', {
 		return workflow;
 	},
 	resourceRights: function(){
-		return ['read', 'contrib', 'publish', 'manager']
+		return ['read', 'contrib', 'manager']
 	}
 });
