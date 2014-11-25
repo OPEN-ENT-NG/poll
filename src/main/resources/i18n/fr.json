@@ -5,6 +5,7 @@
 	"poll.edit.head.modify": "Modification d'un sondage",
 	"poll.edit.title": "Titre",
 	"poll.edit.question": "Question",
+	"poll.edit.answers": "Réponses",
 	
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
 	

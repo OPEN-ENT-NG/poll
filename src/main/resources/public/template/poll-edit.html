@@ -19,6 +19,16 @@
                         <label class="three cell"><i18n>poll.edit.question</i18n></label>
                         <input type="text" class="nine cell" ng-model="poll.question" required />
                     </div>
+                    <div class="row">
+                        <label class="three cell"><i18n>poll.edit.answers</i18n></label>
+                        <div class="row">
+	                        <div ng-repeat="answer in poll.answers" class="nine cell">
+	                        	<input type="text" class="nine cell" ng-model="answer.value" required />
+	                        	<button class="one cell" ng-click="removeAnswer($index)"><i18n>delete</i18n></button>
+	                        </div>
+                        </div>
+                        <button class="right-magnet" ng-click="addNewAnswer()"><i18n>add</i18n></button>
+                    </div>
 				</div>
 			</div>
 			<div class="row bottom-locked">

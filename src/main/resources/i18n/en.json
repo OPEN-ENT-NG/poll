@@ -5,6 +5,7 @@
 	"poll.edit.head.modify": "Modify a poll",
 	"poll.edit.title": "Title",
 	"poll.edit.question": "Question",
+	"poll.edit.answers": "Answers",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	

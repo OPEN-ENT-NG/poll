@@ -1,9 +1,10 @@
 
 /**
- * Controller for polls
- * @param $scope Angular JS model
- * @param template
- * @param model
+ * Controller for polls. All methods contained in this controller can be called
+ * from the view.
+ * @param $scope Angular JS model.
+ * @param template all templates.
+ * @param model the poll model.
  */
 function PollController($scope, template, model) {
     $scope.template = template;
@@ -64,6 +65,8 @@ function PollController($scope, template, model) {
     /**
      * Allows to put the current poll in the scope and set "confirmDeletePoll"
      * variable to "true".
+     * @param poll the poll to delete.
+     * @param event an event.
      */
     $scope.confirmRemovePoll = function(poll, event) {
         $scope.poll = poll;
@@ -90,10 +93,37 @@ function PollController($scope, template, model) {
     /**
      * Allows to open the "share" panel by setting the
      * "$scope.display.showPanel" variable to "true".
+     * @param poll the poll to share.
+     * @param event the current event.
      */
     $scope.sharePoll = function(poll, event){
         $scope.poll = poll;
         $scope.display.showPanel = true;
         event.stopPropagation();
+    };
+
+    /**
+     * Allows to add a new answer in the poll object.
+     */
+    $scope.addNewAnswer = function() {
+        if ($scope.poll != null) {
+            if ($scope.poll.answers === undefined) {
+                $scope.poll.answers = [];
+            }
+            $scope.poll.answers.push(new Answer());
+        }
+    };
+
+    /**
+     * Allows to remove an answer at the given index.
+     * @param index the index of the answer to remove of the list
+     */
+    $scope.removeAnswer = function(index) {
+        if ($scope.poll != null) {  
+            var answers = $scope.poll.answers;
+            if (answers != null && index >= 0 && index < answers.length) {
+                answers.splice(index, 1);
+            }
+        }
     };
 }

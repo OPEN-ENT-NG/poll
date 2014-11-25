@@ -1,5 +1,9 @@
+function Answer() {
+
+}
+
 function Poll() {
-    var poll = this;
+
 }
 
 Poll.prototype.save = function(callback){
@@ -37,8 +41,10 @@ Poll.prototype.delete = function(callback) {
 
 Poll.prototype.toJSON = function(){
     return {
+        icon: this.icon,
         title: this.title,
-        question: this.question
+        question: this.question,
+        answers: this.answers
     }
 };
 
