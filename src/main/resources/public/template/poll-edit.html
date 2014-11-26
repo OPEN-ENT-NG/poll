@@ -4,39 +4,48 @@
 <h2 ng-if="poll._id"><i18n>poll.edit.head.modify</i18n></h2>
 
 <article class="twelve cell">
-	<div class="two cell">
-		<image-select ng-model="poll.icon" default="/img/illustrations/forum-default.png" thumbnails="[{ width: 290, height: 290 }]" class="absolute"></image-select>
-	</div>
-	<div class="ten cell height-two left-two">
-		<div class="absolute">
-			<div class="row">
-				<div class="twelve cell horizontal-spacing-twice">
-					<div class="row">
-						<label class="three cell"><i18n>poll.edit.title</i18n></label>
-						<input type="text" class="nine cell" ng-model="poll.title" required />
+	<form name="form" class="row">
+		<div class="two cell">
+			<image-select ng-model="poll.icon" default="/img/illustrations/forum-default.png" thumbnails="[{ width: 290, height: 290 }]" class="absolute"></image-select>
+		</div>
+		<div class="ten cell height-two left-two">
+			<div class="absolute">
+				<div class="row">
+					<div class="twelve cell horizontal-spacing-twice">
+						<div class="row">
+							<label class="three cell"><i18n>poll.edit.title</i18n></label>
+							<input type="text" class="nine cell" ng-model="poll.title" required />
+						</div>
+	                    <div class="row">
+	                        <label class="three cell"><i18n>poll.edit.question</i18n></label>
+	                        <input type="text" class="nine cell" ng-model="poll.question" required />
+	                    </div>
+	                    <div class="row">
+	                        <label class="three cell"><i18n>poll.edit.end</i18n></label>
+	                        <date-picker ng-model="poll.end"></date-picker>
+	                    </div>
+	                    <div class="row">
+	                        <label class="three cell"><i18n>poll.edit.answers</i18n></label>
+	                    </div>
+	                    <div ng-repeat="answer in poll.answers" class="row">
+	                    	<div class="three cell">&nbsp;</div>
+	                    	<input type="text" class="seven cell" ng-model="answer.value" required />
+	                    	<button class="cell right-magnet" ng-click="removeAnswer($index)"><i18n>delete</i18n></button>
+	                    </div>
+	                    <br />
+	                    <div class="row">
+	                    	<button class="right-magnet" ng-click="addNewAnswer()"><i18n>add</i18n></button>
+	                    </div>
 					</div>
-                    <div class="row">
-                        <label class="three cell"><i18n>poll.edit.question</i18n></label>
-                        <input type="text" class="nine cell" ng-model="poll.question" required />
-                    </div>
-                    <div class="row">
-                        <label class="three cell"><i18n>poll.edit.answers</i18n></label>
-                        <div class="row">
-	                        <div ng-repeat="answer in poll.answers" class="nine cell">
-	                        	<input type="text" class="nine cell" ng-model="answer.value" required />
-	                        	<button class="one cell" ng-click="removeAnswer($index)"><i18n>delete</i18n></button>
-	                        </div>
-                        </div>
-                        <button class="right-magnet" ng-click="addNewAnswer()"><i18n>add</i18n></button>
-                    </div>
 				</div>
-			</div>
-			<div class="row bottom-locked">
-				<div class="twelve cell horizontal-spacing-twice">
-					<button class="right-magnet" ng-click="savePoll()"><i18n>save</i18n></button>
-					<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
+				<br />
+				<div class="row">
+					<div class="twelve cell horizontal-spacing-twice">
+						<button class="right-magnet" ng-click="savePoll()" ng-disabled="form.$invalid"><i18n>save</i18n></button>
+						<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </article>

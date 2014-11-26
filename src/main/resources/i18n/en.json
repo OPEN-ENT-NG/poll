@@ -5,6 +5,7 @@
 	"poll.edit.head.modify": "Modify a poll",
 	"poll.edit.title": "Title",
 	"poll.edit.question": "Question",
+	"poll.edit.end": "End date",
 	"poll.edit.answers": "Answers",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
@@ -14,6 +15,18 @@
 	
 	"poll.read": "Reader",
 	"poll.contrib": "Contributor",
-	"poll.manager": "Manager"
+	"poll.manager": "Manager",
 	
+	"group.Teacher" : "All teachers of the group {0}.",
+	"group.Personnel" : "All staff of the group {0}.",
+	"group.Student" : "All students of the group {0}.",
+	"group.Relative" : "All parents of the group {0}.",
+	"group.school.Teacher" : "All teachers of {0}.",
+	"group.school.Personnel" : "All staff of {0}.",
+	"group.school.Student" : "All students of {0}.",
+	"group.school.Relative" : "All parents of {0}.",
+	"group.class.Teacher" : "All teachers of the class {0}.",
+	"group.class.Personnel" : "All staff of the class {0}.",
+	"group.class.Student" : "All students of the class {0}.",
+	"group.class.Relative" : "All parents of the class {0}."
 }

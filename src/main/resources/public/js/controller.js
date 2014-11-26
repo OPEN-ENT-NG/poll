@@ -17,20 +17,26 @@ function PollController($scope, template, model) {
 
     /**
      * Allows to create a new poll and open the "poll-edit.html" template into
-     * the "main" div.
+     * the "main" div. By default, the end of the poll is set to now + 7.
      */
     $scope.newPoll = function() {
         $scope.poll = new Poll();
+        $scope.poll.end = moment().add(7, 'days').toDate();
         template.open('main', 'poll-edit');
     };
 
     /**
      * Allows to open the given poll into the "main" div using the
-     * "poll-edit.html" template.
+     * "poll-edit.html" template. This method create two variables in the scope :
+     * <ul>
+     * <li>master : keep a reference to the current edited poll.</li>
+     * <li>poll : a copy of the given poll to edit.</li>
+     * </ul>
      * @param poll the current poll to open.
      */
     $scope.openPoll = function(poll) {
-        $scope.poll = poll;
+        $scope.master = poll;
+        $scope.poll = angular.copy(poll);
         template.open('main', 'poll-edit');
     };
     
@@ -39,6 +45,7 @@ function PollController($scope, template, model) {
      * variable and close the "main" template.
      */
     $scope.cancelPollEdit = function() {
+        delete $scope.master;
         delete $scope.poll;
         template.close('main');
     };
@@ -48,18 +55,12 @@ function PollController($scope, template, model) {
      * current poll this method closes the edit view too.
      */
     $scope.savePoll = function() {
-        if ($scope.poll._id) {
-            $scope.poll.save(function() {
-                $scope.poll.sync(function() {
-                    $scope.cancelPollEdit();
-                    $scope.$apply();
-                });
+        $scope.master = angular.copy($scope.poll);
+        $scope.master.save(function() {
+            $scope.polls.sync(function() {
+                $scope.cancelPollEdit();
             });
-        } else {
-            $scope.poll.save();
-            $scope.polls.sync();
-        }
-        template.close('main');
+        });
     };
 
     /**
