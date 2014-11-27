@@ -1,7 +1,14 @@
 package net.atos.entng.poll.controllers;
 
+import java.util.Map;
+
+import net.atos.entng.poll.service.PollServiceImpl;
+
 import org.entcore.common.mongodb.MongoDbControllerHelper;
+import org.vertx.java.core.Vertx;
 import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.core.http.RouteMatcher;
+import org.vertx.java.platform.Container;
 
 import fr.wseduc.rs.ApiDoc;
 import fr.wseduc.rs.Delete;
@@ -16,6 +23,7 @@ import fr.wseduc.security.SecuredAction;
  * @author Atos
  */
 public class PollController extends MongoDbControllerHelper {
+	private String collection;
 
 	/**
 	 * Default constructor.
@@ -23,6 +31,13 @@ public class PollController extends MongoDbControllerHelper {
 	 */
 	public PollController(String collection) {
 		super(collection);
+		this.collection = collection;
+	}
+
+	@Override
+	public void init(Vertx vertx, Container container, RouteMatcher rm, Map<String, fr.wseduc.webutils.security.SecuredAction> securedActions) {
+		super.init(vertx, container, rm, securedActions);
+		this.setCrudService(new PollServiceImpl(collection));
 	}
 
 	@Get("")

@@ -1,0 +1,18 @@
+<h1>Sondage</h1>
+<div class="row" ng-repeat="p in polls">
+    <form class="row">
+        <div class="cell">
+            <img skin-src="/img/illustrations/forum-default.png" ng-if="(p.icon === undefined)" class="cell" />
+            <img ng-src="[[p.icon]]?thumbnail=120x120" ng-if="p.icon !== undefined" class="cell" />
+        </div>
+        <article class="six cell">
+            <h1>[[p.question]]</h1>
+            <div class="row">
+	            <div class="twelve cell" ng-repeat="answer in p.answers">
+	            	<input type="radio" value="[[answer.value]]"/> [[answer.value]]
+	            </div>
+	        </div>
+        </article>
+    </form>
+    <hr />
+</div>

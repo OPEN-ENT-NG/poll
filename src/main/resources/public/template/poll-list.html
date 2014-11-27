@@ -8,7 +8,7 @@
 		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
 	</div>
 	<hr />
-	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)">
+	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
         <div class="cell">
             <img skin-src="/img/illustrations/forum-default.png" ng-if="(p.icon === undefined)" class="cell" />
             <img ng-src="[[p.icon]]?thumbnail=120x120" ng-if="p.icon !== undefined" class="cell" />
