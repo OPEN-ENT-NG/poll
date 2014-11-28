@@ -1,3 +1,4 @@
+
 /**
  * Model to create an answer. The poll object contains a list of this object.
  */

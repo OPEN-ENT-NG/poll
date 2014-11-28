@@ -65,7 +65,20 @@ Behaviours.register('poll', {
                         this.$apply();
                     }.bind(this));
                 },
-                vote : function(poll) {
+                vote : function(p) {
+                    var poll = angular.copy(p);
+                    var answer = poll.answers[poll.selected];
+
+                    if (answer.votes === undefined) {
+                        answer.votes = [];
+                    }
+
+                    answer.votes.push(model.me.userId);
+                    delete poll.selected;
+
+                    http().putJson('/poll/' + poll._id, poll);
+                },
+                hasVote : function() {
 
                 }
             }
