@@ -78,8 +78,17 @@ Behaviours.register('poll', {
 
                     http().putJson('/poll/' + poll._id, poll);
                 },
-                hasVote : function() {
-
+                hasVote : function(p) {
+                	if (p.answers) {
+	                	p.answers.forEach(function (answer) {
+	                	    answer.votes.forEach(function (vote) {
+	                	        if (vote === model.me.userId) {
+	                	            return true;
+	                	        }
+	                	    });
+	                	});
+	                }
+                	return false;
                 }
             }
         }

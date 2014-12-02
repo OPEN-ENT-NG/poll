@@ -7,13 +7,27 @@
         </div>
         <article class="six cell">
             <h1>[[p.question]]</h1>
-            <div class="row">
-                <div class="twelve cell" ng-repeat="answer in p.answers">
-                    <label> <input type="radio" name="[[p._id]]" ng-model="p.selected" value="[[$index]]" /> [[answer.value]]
-                    </label>
+
+            <div ng-switch="hasVote(p)">
+                <div ng-switch-when="false">
+                    <div class="row">
+                        <div class="twelve cell" ng-repeat="answer in p.answers">
+                            <label> <input type="radio" name="[[p._id]]" ng-model="p.selected" value="[[$index]]" /> [[answer.value]]
+                            </label>
+                        </div>
+                        <button ng-click="vote(p)">Voter</button>
+                    </div>
                 </div>
-                <button ng-click="vote(p)">Voter</button>
+                <div ng-switch-default>
+                    <div class="row">
+                        <div class="twelve cell" ng-repeat="answer in p.answers">
+                            [[answer.value]] : [[answer.votes.lenght]]
+                        </div>
+                        <button ng-click="vote(p)">Voter</button>
+                    </div>
+                </div>
             </div>
+
         </article>
     </form>
     <hr />
