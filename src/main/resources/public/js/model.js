@@ -69,7 +69,6 @@ Poll.prototype.delete = function(callback) {
 Poll.prototype.toJSON = function() {
     return {
         icon: this.icon,
-        title: this.title,
         question: this.question,
         end: this.end,
         answers: this.answers

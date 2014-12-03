@@ -22,6 +22,9 @@ function PollController($scope, template, model) {
     $scope.newPoll = function() {
         $scope.poll = new Poll();
         $scope.poll.end = moment().add(7, 'days').toDate();
+        $scope.poll.answers = [];
+        $scope.poll.answers.push(new Answer());
+        $scope.poll.answers.push(new Answer());
         template.open('main', 'poll-edit');
     };
 

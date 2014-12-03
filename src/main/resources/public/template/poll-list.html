@@ -1,6 +1,6 @@
 <h1><i18n ng-click="openMainPage()">poll.title</i18n></h1>
 
-<div class="patchwork">
+<div class="items">
 	<div class="twelve cell">
 		<div class="cell">
 			<button ng-click="newPoll()"><i18n>poll.new</i18n></button>
@@ -13,11 +13,8 @@
             <img skin-src="/img/illustrations/forum-default.png" ng-if="(p.icon === undefined)" class="cell" />
             <img ng-src="[[p.icon]]?thumbnail=120x120" ng-if="p.icon !== undefined" class="cell" />
         </div>
-		<article class="six cell">
-			<h1>[[p.title]]</h1>
-
-            <strong class="small-text">[[p.question]]</strong>
-            
+		<article>
+			<h1>[[p.question]]</h1>
             <div class="small-hidden bottom-locked">
                 <behaviour name="manage" resource="p">
                     <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>

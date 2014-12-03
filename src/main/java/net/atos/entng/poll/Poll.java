@@ -12,24 +12,24 @@ import org.entcore.common.mongodb.MongoDbConf;
  */
 public class Poll extends BaseServer {
 
-	/**
-	 * Constant to define the MongoDB collection to use with this module.
-	 */
-	public static final String POLL_COLLECTION = "poll";
+    /**
+     * Constant to define the MongoDB collection to use with this module.
+     */
+    public static final String POLL_COLLECTION = "poll";
 
-	/**
-	 * Entry point of the Vert.x module
-	 */
-	@Override
-	public void start() {
-		super.start();
+    /**
+     * Entry point of the Vert.x module
+     */
+    @Override
+    public void start() {
+        super.start();
 
-		MongoDbConf conf = MongoDbConf.getInstance();
-		conf.setCollection(POLL_COLLECTION);
-		conf.setResourceIdLabel("id");
+        MongoDbConf conf = MongoDbConf.getInstance();
+        conf.setCollection(POLL_COLLECTION);
+        conf.setResourceIdLabel("id");
 
-		setDefaultResourceFilter(new ShareAndOwner());
-		addController(new PollController(POLL_COLLECTION));
-	}
+        setDefaultResourceFilter(new ShareAndOwner());
+        addController(new PollController(POLL_COLLECTION));
+    }
 
 }
