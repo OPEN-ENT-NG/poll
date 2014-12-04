@@ -102,13 +102,13 @@ Behaviours.register('poll', {
                 },
 
                 /**
-                 * Allows to get if the current user has already vote for the
+                 * Allows to get if the current user has already voted for the
                  * given poll. This method search for the user identifier in the
                  * list of votes in the list of answers.
                  * @param p a poll to test.
-                 * @return true if the user has already vote in the given poll.
+                 * @return true if the user has already voted in the given poll.
                  */
-                hasVote : function(p) {
+                hasAlreadyVoted : function(p) {
                     if (p && p.answers) {
                         for (var i = 0; i < p.answers.length; i++) {
                             var answer = p.answers[i];
@@ -122,6 +122,15 @@ Behaviours.register('poll', {
                         }
                     }
                     return false;
+                },
+                
+                /**
+                 * Allows to get if the given poll has expired.
+                 * @param p a poll to test.
+                 * @return true if the given poll has expired.
+                 */
+                hasExpired : function (p) {
+                    return p && moment().isAfter(p.end);
                 }
             }
         }

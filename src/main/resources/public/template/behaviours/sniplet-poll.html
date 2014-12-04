@@ -8,21 +8,20 @@
         <article class="six cell">
             <h1>[[poll.question]]</h1>
 
-            <div ng-switch="hasVote(poll)">
-                <div ng-switch-when="false">
+            <div ng-switch="hasExpired(poll) || hasAlreadyVoted(poll)">
+                <div ng-switch-when="true">
                     <div class="row">
-                        <div class="twelve cell" ng-repeat="answer in poll.answers">
-                            <label> <input type="radio" name="[[poll._id]]" ng-model="poll.selected" value="[[$index]]" /> [[answer.value]]
-                            </label>
-                        </div>
-                        <button ng-click="vote(poll)">Voter</button>
+                        <div class="twelve cell" ng-repeat="answer in poll.answers">[[answer.value]] : [[answer.votes.length]]</div>
                     </div>
                 </div>
                 <div ng-switch-default>
                     <div class="row">
                         <div class="twelve cell" ng-repeat="answer in poll.answers">
-                            [[answer.value]] : [[answer.votes.length]]
+                            <label for="vote_[[$index]]">
+                                <input id="vote_[[$index]]" type="radio" name="[[poll._id]]" ng-model="poll.selected" value="[[$index]]" /> [[answer.value]]
+                            </label>
                         </div>
+                        <button ng-click="vote(poll)">Voter</button>
                     </div>
                 </div>
             </div>
