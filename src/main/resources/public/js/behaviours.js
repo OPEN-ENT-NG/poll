@@ -46,25 +46,47 @@ Behaviours.register('poll', {
     sniplets : {
         poll : {
             title : 'Sondage',
-            description : 'Voter a un sondage',
+            description : 'Participer a un sondage',
             controller : {
+
+                /**
+                 * Allows to load the list of polls to display in a lightbox of
+                 * selection. The user click on one of them. This set the object
+                 * "source" in the model with the id of the selected poll.
+                 */
                 initSource : function() {
-                    this.list();
-                },
-                init : function() {
-                    this.list();
-                },
-                copyRights : function(snipletResource, source) {
-                    source.polls.forEach(function(poll) {
-                        Behaviours.copyRights(snipletResource, poll, pollBehaviours.viewRights, 'poll');
-                    });
-                },
-                list : function() {
                     http().get('/poll/list/all').done(function(data) {
                         this.polls = data;
                         this.$apply();
                     }.bind(this));
                 },
+
+                /**
+                 * Allows to load the poll associated to "this.source._id". In
+                 * the view the selected poll is set into "this.poll" variable.
+                 */
+                init : function() {
+                    http().get('/poll/' + this.source._id).done(function(p) {
+                        this.poll = p;
+                        this.$apply();
+                    }.bind(this));
+                },
+                
+                /**
+                 * Allows to copy all rights of polls
+                 * @param snipletResource
+                 * @param source
+                 */
+                copyRights : function(snipletResource, source) {
+                    source.polls.forEach(function(poll) {
+                        Behaviours.copyRights(snipletResource, poll, pollBehaviours.viewRights, 'poll');
+                    });
+                },
+
+                /**
+                 * Allows to vote into the given poll.
+                 * @param p a poll.
+                 */
                 vote : function(p) {
                     var poll = angular.copy(p);
                     var answer = poll.answers[poll.selected];
@@ -78,17 +100,28 @@ Behaviours.register('poll', {
 
                     http().putJson('/poll/' + poll._id, poll);
                 },
+
+                /**
+                 * Allows to get if the current user has already vote for the
+                 * given poll. This method search for the user identifier in the
+                 * list of votes in the list of answers.
+                 * @param p a poll to test.
+                 * @return true if the user has already vote in the given poll.
+                 */
                 hasVote : function(p) {
-                	if (p.answers) {
-	                	p.answers.forEach(function (answer) {
-	                	    answer.votes.forEach(function (vote) {
-	                	        if (vote === model.me.userId) {
-	                	            return true;
-	                	        }
-	                	    });
-	                	});
-	                }
-                	return false;
+                    if (p && p.answers) {
+                        for (var i = 0; i < p.answers.length; i++) {
+                            var answer = p.answers[i];
+                            if (answer.votes) {
+                                for (var j = 0; j < answer.votes.length; j++) {
+                                    if (answer.votes[j] === model.me.userId) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return false;
                 }
             }
         }
