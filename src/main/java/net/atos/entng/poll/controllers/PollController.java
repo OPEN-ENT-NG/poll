@@ -1,7 +1,9 @@
 package net.atos.entng.poll.controllers;
 
 import org.entcore.common.mongodb.MongoDbControllerHelper;
+import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.core.json.JsonObject;
 
 import fr.wseduc.rs.ApiDoc;
 import fr.wseduc.rs.Delete;
@@ -10,6 +12,7 @@ import fr.wseduc.rs.Post;
 import fr.wseduc.rs.Put;
 import fr.wseduc.security.ActionType;
 import fr.wseduc.security.SecuredAction;
+import fr.wseduc.webutils.request.RequestUtils;
 
 /**
  * Controller to manage URL paths for polls.
@@ -43,8 +46,14 @@ public class PollController extends MongoDbControllerHelper {
     @Post("")
     @ApiDoc("Allows to create a new poll")
     @SecuredAction("poll.create")
-    public void create(HttpServerRequest request) {
-        super.create(request);
+    public void create(final HttpServerRequest request) {
+        RequestUtils.bodyToJson(request, pathPrefix + "poll", new Handler<JsonObject>() {
+
+            @Override
+            public void handle(JsonObject event) {
+                PollController.super.create(request);
+            }
+        });
     }
 
     @Override
@@ -59,8 +68,14 @@ public class PollController extends MongoDbControllerHelper {
     @Put("/:id")
     @ApiDoc("Allows to update a poll associted to the given identifier")
     @SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
-    public void update(HttpServerRequest request) {
-        super.update(request);
+    public void update(final HttpServerRequest request) {
+        RequestUtils.bodyToJson(request, pathPrefix + "poll", new Handler<JsonObject>() {
+
+            @Override
+            public void handle(JsonObject event) {
+                PollController.super.update(request);
+            }
+        });
     }
 
     @Override
