@@ -1,32 +1,31 @@
 <h1>Sondage</h1>
-<div class="row">
-    <form name="form">
-        <div class="cell">
-            <img skin-src="/img/illustrations/forum-default.png" ng-if="(content.poll.icon === undefined)" class="cell" />
-            <img ng-src="[[content.poll.icon]]?thumbnail=120x120" ng-if="content.poll.icon !== undefined" class="cell" />
-        </div>
-        <article class="six cell">
-            <h1>[[content.poll.question]]</h1>
-
-            <div ng-switch on="content.hasAlreadyVoted || content.hasExpired">
-                <div ng-switch-when="true">
-                    <div class="row">
-                        <div class="twelve cell" ng-repeat="answer in content.poll.answers">[[answer.value]] : [[answer.votes.length || "0"]]</div>
-                    </div>
-                </div>
-                <div ng-switch-default>
-                    <div class="row">
-                        <div class="twelve cell" ng-repeat="answer in content.poll.answers">
-                            <label for="vote_[[$index]]">
-                                <input id="vote_[[$index]]" type="radio" name="[[content.poll._id]]" ng-model="content.selected" value="[[$index]]" /> [[answer.value]]
-                            </label>
-                        </div>
-                        <button ng-click="vote()">Voter</button>
+<article class="row">
+    <div class="two cell">
+        <img skin-src="/img/illustrations/forum-default.png" ng-if="(content.poll.icon === undefined)" />
+        <img ng-src="[[content.poll.icon]]?thumbnail=120x120" ng-if="content.poll.icon !== undefined" />
+    </div>
+    <div class="nine cell left-one">
+        <h2>[[content.poll.question]]</h2>
+        <div ng-switch on="content.hasAlreadyVoted || content.hasExpired">
+            <div ng-switch-when="true">
+                <div class="row">
+                    <div class="twelve cell" ng-repeat="answer in content.poll.answers">
+                        <div class="cell">[[answer.value]] :</div>
+                        <div class="cell">[[answer.votes.length || "0"]]</div>
                     </div>
                 </div>
             </div>
+            <div ng-switch-default>
+                <div class="row">
+                    <div class="twelve cell" ng-repeat="answer in content.poll.answers">
+                        <label for="vote_[[$index]]">
+                            <input id="vote_[[$index]]" type="radio" name="[[content.poll._id]]" ng-model="content.selected" value="[[$index]]" /> [[answer.value]]
+                        </label>
+                    </div>
+                </div>
+                <button ng-click="vote()">Voter</button>
+            </div>
+        </div>
+    </div>
 
-        </article>
-    </form>
-    <hr />
-</div>
+</article>

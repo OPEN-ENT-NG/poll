@@ -58,7 +58,7 @@ public class PollController extends MongoDbControllerHelper {
 
     @Override
     @Get("/:id")
-    @ApiDoc("Allows to get a poll associted to the given identifier")
+    @ApiDoc("Allows to get a poll associated to the given identifier")
     @SecuredAction(value = "poll.read", type = ActionType.RESOURCE)
     public void retrieve(HttpServerRequest request) {
         super.retrieve(request);
@@ -66,7 +66,7 @@ public class PollController extends MongoDbControllerHelper {
 
     @Override
     @Put("/:id")
-    @ApiDoc("Allows to update a poll associted to the given identifier")
+    @ApiDoc("Allows to update a poll associated to the given identifier")
     @SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
     public void update(final HttpServerRequest request) {
         RequestUtils.bodyToJson(request, pathPrefix + "poll", new Handler<JsonObject>() {
@@ -80,7 +80,7 @@ public class PollController extends MongoDbControllerHelper {
 
     @Override
     @Delete("/:id")
-    @ApiDoc("Allows to delete a poll associted to the given identifier")
+    @ApiDoc("Allows to delete a poll associated to the given identifier")
     @SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
     public void delete(HttpServerRequest request) {
         super.delete(request);

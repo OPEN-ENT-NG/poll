@@ -130,4 +130,13 @@ function PollController($scope, template, model) {
             }
         }
     };
+    
+    /**
+     * Allows to get if the given poll has expired.
+     * @param p a poll to test.
+     * @return true if the given poll has expired.
+     */
+    $scope.hasExpired = function (p) {
+        return p && moment().isAfter(p.end);
+    };
 }

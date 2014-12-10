@@ -16,6 +16,7 @@
 		<article>
 			<h1>[[p.question]]</h1>
             <strong class="small-text">[[p.end | date:'dd/MM/yyyy']]</strong>
+            <div class="small-hidden" ng-if="hasExpired(p)"><em><i18n>poll.expired</i18n></em></div>
             <div class="small-hidden bottom-locked">
                 <behaviour name="manage" resource="p">
                     <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
@@ -30,13 +31,15 @@
 <!-- Allows to display a confirm dialog before deleting a poll -->
 <div ng-if="display.confirmDeletePoll">
     <lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
-        <div class="row">
-            <i18n>poll.delete.confirm</i18n>
-        </div>
-        <div class="row">
-            <button class="right-magnet" ng-click="removePoll()"><i18n>remove</i18n></button>
-            <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
-        </div>
+        <article>
+            <div class="row">
+                <i18n>poll.delete.confirm</i18n>
+            </div>
+            <div class="row">
+                <button class="right-magnet" ng-click="removePoll()"><i18n>remove</i18n></button>
+                <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
+            </div>
+        </article>
     </lightbox>
 </div>
 

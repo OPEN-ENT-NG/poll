@@ -12,6 +12,7 @@
 	
 	"poll.new": "New poll",
 	"poll.create": "Create",
+	"poll.expired": "(Expired)",
 	
 	"poll.read": "Reader",
 	"poll.contrib": "Contributor",
