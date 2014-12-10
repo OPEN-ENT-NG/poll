@@ -67,7 +67,11 @@ Behaviours.register('poll', {
                  */
                 init : function() {
                     http().get('/poll/' + this.source._id).done(function(p) {
-                        this.poll = p;
+                        this.content = {};
+                        this.content.poll = p;
+                        this.content.hasAlreadyVoted=this.hasAlreadyVoted(p);
+                        this.content.hasExpired=this.hasExpired(p);
+                        
                         this.$apply();
                     }.bind(this));
                 },
@@ -84,21 +88,22 @@ Behaviours.register('poll', {
                 },
 
                 /**
-                 * Allows to vote into the given poll.
-                 * @param p a poll.
+                 * Allows to vote into the current poll.
                  */
-                vote : function(p) {
-                    var poll = angular.copy(p);
-                    var answer = poll.answers[poll.selected];
+                vote : function() {
+                    var poll = this.content.poll;
+                    var answer = poll.answers[this.content.selected];
 
                     if (answer.votes === undefined) {
                         answer.votes = [];
                     }
 
                     answer.votes.push(model.me.userId);
-                    delete poll.selected;
+                    delete content.selected;
 
                     http().putJson('/poll/' + poll._id, poll);
+                    
+                    this.content.hasAlreadyVoted=true;
                 },
 
                 /**

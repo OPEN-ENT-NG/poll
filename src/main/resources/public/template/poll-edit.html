@@ -23,7 +23,7 @@
 	                    </div>
 	                    <div ng-repeat="answer in poll.answers" class="row">
 	                    	<input type="text" class="seven cell left-three" ng-model="answer.value" required />
-	                    	<button class="cell right-magnet" ng-click="removeAnswer($index)"><i18n>delete</i18n></button>
+	                    	<button class="cell right-magnet" ng-click="removeAnswer($index)">x</button>
 	                    </div>
 	                    <br />
 	                    <div class="row">
