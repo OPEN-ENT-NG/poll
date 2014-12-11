@@ -16,6 +16,17 @@ function PollController($scope, template, model) {
     template.open('polls', 'poll-list');
 
     /**
+     * Allows to open the given poll into the "main" div using the
+     * "poll-view.html" template.
+     * @param poll the current poll to open.
+     */
+    $scope.openPoll = function(poll) {
+        $scope.poll = poll;
+        $scope.hideAlmostAllButtons(poll);
+        template.open('main', 'poll-view');
+    };
+    
+    /**
      * Allows to create a new poll and open the "poll-edit.html" template into
      * the "main" div. By default, the end of the poll is set to now + 7.
      */
@@ -29,18 +40,32 @@ function PollController($scope, template, model) {
     };
 
     /**
-     * Allows to open the given poll into the "main" div using the
+     * Allows to edit the given poll into the "main" div using the
      * "poll-edit.html" template. This method create two variables in the scope :
      * <ul>
      * <li>master : keep a reference to the current edited poll.</li>
      * <li>poll : a copy of the given poll to edit.</li>
      * </ul>
-     * @param poll the current poll to open.
+     * @param poll the current poll to edit.
+     * @param event the current event.
      */
-    $scope.openPoll = function(poll) {
+    $scope.editPoll = function(poll, event) {
         $scope.master = poll;
         $scope.poll = angular.copy(poll);
+        event.stopPropagation();
         template.open('main', 'poll-edit');
+    };
+    
+    /**
+     * Allows to set "showButtons" to false for all polls except the given one.
+     * @param poll the current selected poll.
+     */
+    $scope.hideAlmostAllButtons = function(poll) {
+        $scope.polls.forEach(function(p) {
+            if(p._id !== poll._id){
+                p.showButtons = false;
+            }
+        });
     };
     
     /**
@@ -139,4 +164,5 @@ function PollController($scope, template, model) {
     $scope.hasExpired = function (p) {
         return p && moment().isAfter(p.end);
     };
+
 }

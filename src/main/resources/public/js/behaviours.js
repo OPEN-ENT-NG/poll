@@ -1,17 +1,40 @@
+/**
+ * Define rights for behaviours.
+ */
 var pollBehaviours = {
+
+    /**
+     * Resources set by the user.
+     */
     resources : {
         manage : {
             right : 'net-atos-entng-poll-controllers-PollController|delete'
         }
     },
+
+    /**
+     * Workflow rights are defined by the administrator. This associates a name
+     * with a Java method of the server.
+     */
     workflow : {
-        admin : 'net-atos-entng-poll-controllers-PollController|create'
+        create : 'net.atos.entng.poll.controllers.PollController|create'
     },
+
+    /**
+     * Special rights for the sniplet part.
+     */
     viewRights : [ "net-atos-entng-poll-controllers-PollController|list" ]
 };
 
+/**
+ * Register behaviours.
+ */
 Behaviours.register('poll', {
     behaviours : pollBehaviours,
+
+    /**
+     * Allows to set rights for behaviours.
+     */
     resource : function(resource) {
         var rightsContainer = resource;
         if (!resource.myRights) {
@@ -29,8 +52,14 @@ Behaviours.register('poll', {
         }
         return resource;
     },
+
+    /**
+     * Allows to load workflow rights according to rights defined by the
+     * administrator for the current user in the console.
+     */
     workflow : function() {
         var workflow = {};
+
         var pollWorkflow = pollBehaviours.workflow;
         for ( var prop in pollWorkflow) {
             if (model.me.hasWorkflow(pollWorkflow[prop])) {
@@ -40,9 +69,20 @@ Behaviours.register('poll', {
 
         return workflow;
     },
+
+    /**
+     * Allows to define all rights to display in the share windows. Names are
+     * defined in the server part with
+     * <code>@SecuredAction(value = "xxxx.read", type = ActionType.RESOURCE)</code>
+     * without the prefix <code>xxx</code>.
+     */
     resourceRights : function() {
-        return [ 'read', 'contrib', 'manager' ]
+        return [ 'read', 'manager' ]
     },
+
+    /**
+     * Allows to define the poll sniplet
+     */
     sniplets : {
         poll : {
             title : 'Sondage',
@@ -69,13 +109,13 @@ Behaviours.register('poll', {
                     http().get('/poll/' + this.source._id).done(function(p) {
                         this.content = {};
                         this.content.poll = p;
-                        this.content.hasAlreadyVoted=this.hasAlreadyVoted(p);
-                        this.content.hasExpired=this.hasExpired(p);
-                        
+                        this.content.hasAlreadyVoted = this.hasAlreadyVoted(p);
+                        this.content.hasExpired = this.hasExpired(p);
+
                         this.$apply();
                     }.bind(this));
                 },
-                
+
                 /**
                  * Allows to copy all rights of polls
                  * @param snipletResource
@@ -102,8 +142,8 @@ Behaviours.register('poll', {
                     delete content.selected;
 
                     http().putJson('/poll/' + poll._id, poll);
-                    
-                    this.content.hasAlreadyVoted=true;
+
+                    this.content.hasAlreadyVoted = true;
                 },
 
                 /**
@@ -128,13 +168,13 @@ Behaviours.register('poll', {
                     }
                     return false;
                 },
-                
+
                 /**
                  * Allows to get if the given poll has expired.
                  * @param p a poll to test.
                  * @return true if the given poll has expired.
                  */
-                hasExpired : function (p) {
+                hasExpired : function(p) {
                     return p && moment().isAfter(p.end);
                 }
             }

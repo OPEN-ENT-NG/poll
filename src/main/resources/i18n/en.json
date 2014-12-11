@@ -3,14 +3,14 @@
 	
 	"poll.edit.head.create": "Create a new poll",
 	"poll.edit.head.modify": "Modify a poll",
-	"poll.edit.title": "Title",
-	"poll.edit.question": "Question",
-	"poll.edit.end": "End date",
-	"poll.edit.answers": "Answers",
+	"poll.edit.question": "Question :",
+	"poll.edit.end": "End date :",
+	"poll.edit.answers": "Answers :",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	
 	"poll.new": "New poll",
+	"poll.view": "Display a poll",
 	"poll.create": "Create",
 	"poll.expired": "(Expired)",
 	

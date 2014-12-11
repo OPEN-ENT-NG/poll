@@ -3,14 +3,14 @@
 	
 	"poll.edit.head.create": "Creation d'un nouveau sondage",
 	"poll.edit.head.modify": "Modification d'un sondage",
-	"poll.edit.title": "Titre",
-	"poll.edit.question": "Question",
-	"poll.edit.end": "Date de fin",
-	"poll.edit.answers": "Réponses",
+	"poll.edit.question": "Question :",
+	"poll.edit.end": "Date de fin :",
+	"poll.edit.answers": "Réponses :",
 	
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
 	
 	"poll.new": "Nouveau sondage",
+	"poll.view": "Affichage d'un sondage",
 	"poll.create": "Créer",
 	"poll.expired": "(Expiré)",
 	
