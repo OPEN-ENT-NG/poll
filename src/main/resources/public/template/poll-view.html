@@ -19,11 +19,13 @@
                     <div class="row">
                         <div class="three cell"><i18n>poll.edit.answers</i18n></div>
                     </div>
-                    
-                    <div ng-repeat="answer in poll.answers" class="row">
-                        <div class="seven cell left-three">[[answer.value]] :</div>
-                        <div class="cell">[[answer.votes.length || "0"]]</div>
-                    </div>
+
+                    <ul class="poll-chart">
+                        <li class="item" ng-repeat="answer in poll.answers">
+                            <h3>[[answer.votes.length || '0']] : [[answer.value]]</h3> 
+                            <progress class="item-[[$index % 3]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
+                        </li>
+                    </ul>
 				</div>
 			</div>
 		</div>

@@ -23,6 +23,7 @@ function PollController($scope, template, model) {
     $scope.openPoll = function(poll) {
         $scope.poll = poll;
         $scope.hideAlmostAllButtons(poll);
+        $scope.totalVotes = $scope.getTotalVotes(poll);
         template.open('main', 'poll-view');
     };
     
@@ -62,7 +63,7 @@ function PollController($scope, template, model) {
      */
     $scope.hideAlmostAllButtons = function(poll) {
         $scope.polls.forEach(function(p) {
-            if(p._id !== poll._id){
+            if(!poll || p._id !== poll._id){
                 p.showButtons = false;
             }
         });
@@ -75,6 +76,7 @@ function PollController($scope, template, model) {
     $scope.cancelPollEdit = function() {
         delete $scope.master;
         delete $scope.poll;
+        $scope.hideAlmostAllButtons();
         template.close('main');
     };
 
@@ -164,5 +166,21 @@ function PollController($scope, template, model) {
     $scope.hasExpired = function (p) {
         return p && moment().isAfter(p.end);
     };
-
+    
+    /**
+     * Allows to get the total number of votes of the given poll.
+     * @param poll a poll.
+     * @return the total number of votes of the given poll.
+     */
+    $scope.getTotalVotes = function(poll) {
+        var result = 0;
+        if (poll.answsers)
+        for (var i = 0; i < poll.answsers; i++) {
+            var answer = poll.answsers[i];
+            if (answer.votes) {
+                result += answer.votes.length;
+            }
+        }
+        return result;
+    };
 }
