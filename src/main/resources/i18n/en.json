@@ -3,9 +3,10 @@
 	
 	"poll.head.create": "Create a new poll",
 	"poll.head.modify": "Modify a poll",
-	"poll.question": "Question :",
-	"poll.end": "End date :",
-	"poll.answers": "Answers :",
+	"poll.question": "Question",
+	"poll.end": "End date",
+	"poll.image": "Associate an image",
+	"poll.answers": "Answers",
 	"poll.total.vote": "Total number of voters :",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",

@@ -1,44 +1,49 @@
-<h2 ng-if="!poll._id"><i18n>poll.head.create</i18n></h2>
-<h2 ng-if="poll._id"><i18n>poll.head.modify</i18n></h2>
+<div class="row">
 
-<article class="twelve cell">
-	<form name="form">
-		<div class="two cell">
-			<image-select ng-model="poll.icon" default="/img/illustrations/forum-default.png" thumbnails="[{ width: 290, height: 290 }]" class="absolute"></image-select>
-		</div>
-		<div class="ten cell height-ten left-two">
-			<div class="absolute">
-				<div class="row">
-					<div class="twelve cell horizontal-spacing-twice">
-	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.question</i18n></label>
-	                        <input type="text" class="nine cell" ng-model="poll.question" required />
-	                    </div>
-	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.end</i18n></label>
-	                        <date-picker ng-model="poll.end"></date-picker>
-	                    </div>
-	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.answers</i18n></label>
-	                    </div>
-	                    <div ng-repeat="answer in poll.answers" class="row">
-	                    	<input type="text" class="seven cell left-three" ng-model="answer.value" required />
-	                    	<button class="cell right-magnet" ng-hide="poll.answers.length <= 2" ng-click="removeAnswer($index)">x</button>
-	                    </div>
-	                    <br />
-	                    <div class="row">
-	                    	<button class="right-magnet" ng-click="addNewAnswer()"><i18n>add</i18n></button>
-	                    </div>
-					</div>
-				</div>
-				<br />
-				<div class="row">
-					<div class="twelve cell horizontal-spacing-twice">
-						<button class="right-magnet" ng-click="savePoll()" ng-disabled="form.$invalid"><i18n>save</i18n></button>
-						<input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-</article>
+    <h2 ng-if="!poll._id">
+        <i18n>poll.head.create</i18n>
+    </h2>
+    <h2 ng-if="poll._id">
+        <i18n>poll.head.modify</i18n>
+    </h2>
+    
+    <article class="twelve cell">
+        <form name="form">
+            <!-- Question -->
+            <label class="twelve cell"><i18n>poll.question</i18n></label> 
+            <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required /> 
+            
+            <!-- End -->
+            <label class="twelve cell"><i18n>poll.end</i18n></label>
+            <div class="twelve cell">
+                <date-picker ng-model="poll.end"></date-picker>
+            </div>
+
+            <!-- Images -->
+            <div class="twelve cell">
+                <label class="twelve cell"><i18n>poll.image</i18n></label>
+                <div class="two cell">
+                    <image-select ng-model="poll.icon" default="/img/illustrations/forum-default.png" thumbnails="[{ width: 290, height: 290 }]"></image-select>
+                </div>
+            </div>
+
+            <!-- Answers -->
+            <label class="twelve cell"><i18n>poll.answers</i18n></label>
+            <div class="twelve cell" ng-repeat="answer in poll.answers">
+                <input class="cell" ng-class="poll.answers.length <= 2 || totalVotes > 0 ? 'twelve' : 'eleven'" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" required />
+                <button class="cell right-magnet" ng-hide="poll.answers.length <= 2 || totalVotes > 0" ng-click="removeAnswer($index)">x</button>
+            </div>
+            <button class="vertical-spacing-twice cell right-magnet" ng-hide="totalVotes > 0" ng-click="addNewAnswer()">
+                <i18n>add</i18n>
+            </button>
+
+            <!-- Controls -->
+            <div class="vertical-spacing-twice twelve cell">
+                <button class="right-magnet" ng-click="savePoll()" ng-disabled="form.$invalid">
+                    <i18n>save</i18n>
+                </button>
+                <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
+            </div>
+        </form>
+    </article>
+</div>

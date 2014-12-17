@@ -53,6 +53,7 @@ function PollController($scope, template, model) {
     $scope.editPoll = function(poll, event) {
         $scope.master = poll;
         $scope.poll = angular.copy(poll);
+        $scope.totalVotes = $scope.getTotalVotes(poll);
         event.stopPropagation();
         template.open('main', 'poll-edit');
     };

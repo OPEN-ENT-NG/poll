@@ -3,9 +3,10 @@
 	
 	"poll.head.create": "Creation d'un nouveau sondage",
 	"poll.head.modify": "Modification d'un sondage",
-	"poll.question": "Question :",
-	"poll.end": "Date de fin :",
-	"poll.answers": "Réponses :",
+	"poll.question": "Question",
+	"poll.end": "Date de fin",
+	"poll.image": "Associer une image",
+	"poll.answers": "Réponses",
 	"poll.total.vote": "Nombre total de votants :",
 	
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
