@@ -9,23 +9,24 @@
 			<div class="row">
 				<div class="twelve cell horizontal-spacing-twice">
                     <div class="row">
-                        <div class="three cell"><i18n>poll.edit.question</i18n></div>
+                        <div class="three cell"><i18n>poll.question</i18n></div>
                         <div class="nine cell">[[poll.question]]</div>
                     </div>
                     <div class="row">
-                        <div class="three cell"><i18n>poll.edit.end</i18n></div>
+                        <div class="three cell"><i18n>poll.end</i18n></div>
                         <div class="nine cell">[[poll.end | date:'dd/MM/yyyy']]</div>
                     </div>
                     <div class="row">
-                        <div class="three cell"><i18n>poll.edit.answers</i18n></div>
+                        <div class="three cell"><i18n>poll.answers</i18n></div>
                     </div>
 
                     <ul class="poll-chart">
                         <li class="item" ng-repeat="answer in poll.answers">
-                            <h3>[[answer.votes.length || '0']] : [[answer.value]]</h3> 
-                            <progress class="item-[[$index % 3]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
+                            <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0']] %</h3> 
+                            <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
                         </li>
                     </ul>
+                    <h2><i18n>poll.total.vote</i18n> [[totalVotes]]</h2>
 				</div>
 			</div>
 		</div>

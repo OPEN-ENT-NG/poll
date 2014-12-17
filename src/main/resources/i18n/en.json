@@ -1,11 +1,12 @@
 {
 	"poll.title": "Poll",
 	
-	"poll.edit.head.create": "Create a new poll",
-	"poll.edit.head.modify": "Modify a poll",
-	"poll.edit.question": "Question :",
-	"poll.edit.end": "End date :",
-	"poll.edit.answers": "Answers :",
+	"poll.head.create": "Create a new poll",
+	"poll.head.modify": "Modify a poll",
+	"poll.question": "Question :",
+	"poll.end": "End date :",
+	"poll.answers": "Answers :",
+	"poll.total.vote": "Total number of voters :",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	

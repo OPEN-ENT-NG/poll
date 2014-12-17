@@ -174,11 +174,12 @@ function PollController($scope, template, model) {
      */
     $scope.getTotalVotes = function(poll) {
         var result = 0;
-        if (poll.answsers)
-        for (var i = 0; i < poll.answsers; i++) {
-            var answer = poll.answsers[i];
-            if (answer.votes) {
-                result += answer.votes.length;
+        if (poll.answers) {
+            for (var i = 0; i < poll.answers.length; i++) {
+                var answer = poll.answers[i];
+                if (answer.votes) {
+                    result += answer.votes.length;
+                }
             }
         }
         return result;

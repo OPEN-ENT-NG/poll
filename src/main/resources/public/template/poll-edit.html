@@ -1,5 +1,5 @@
-<h2 ng-if="!poll._id"><i18n>poll.edit.head.create</i18n></h2>
-<h2 ng-if="poll._id"><i18n>poll.edit.head.modify</i18n></h2>
+<h2 ng-if="!poll._id"><i18n>poll.head.create</i18n></h2>
+<h2 ng-if="poll._id"><i18n>poll.head.modify</i18n></h2>
 
 <article class="twelve cell">
 	<form name="form">
@@ -11,15 +11,15 @@
 				<div class="row">
 					<div class="twelve cell horizontal-spacing-twice">
 	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.edit.question</i18n></label>
+	                        <label class="three cell"><i18n>poll.question</i18n></label>
 	                        <input type="text" class="nine cell" ng-model="poll.question" required />
 	                    </div>
 	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.edit.end</i18n></label>
+	                        <label class="three cell"><i18n>poll.end</i18n></label>
 	                        <date-picker ng-model="poll.end"></date-picker>
 	                    </div>
 	                    <div class="row">
-	                        <label class="three cell"><i18n>poll.edit.answers</i18n></label>
+	                        <label class="three cell"><i18n>poll.answers</i18n></label>
 	                    </div>
 	                    <div ng-repeat="answer in poll.answers" class="row">
 	                    	<input type="text" class="seven cell left-three" ng-model="answer.value" required />
