@@ -37,6 +37,7 @@ function PollController($scope, template, model) {
         $scope.poll.answers = [];
         $scope.poll.answers.push(new Answer());
         $scope.poll.answers.push(new Answer());
+        $scope.totalVotes = 0;
         template.open('main', 'poll-edit');
     };
 

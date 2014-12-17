@@ -1,34 +1,12 @@
-<h2><i18n>poll.view</i18n></h2>
-<article class="twelve cell">
-	<div class="two cell">
-        <img ng-if="poll.icon === undefined" class="cell" skin-src="/img/illustrations/forum-default.png" />
-        <img ng-if="poll.icon !== undefined" class="cell" ng-src="[[poll.icon]]?thumbnail=120x120" />
-	</div>
-	<div class="ten cell height-ten">
-		<div class="absolute">
-			<div class="row">
-				<div class="twelve cell horizontal-spacing-twice">
-                    <div class="row">
-                        <div class="three cell"><i18n>poll.question</i18n></div>
-                        <div class="nine cell">[[poll.question]]</div>
-                    </div>
-                    <div class="row">
-                        <div class="three cell"><i18n>poll.end</i18n></div>
-                        <div class="nine cell">[[poll.end | date:'dd/MM/yyyy']]</div>
-                    </div>
-                    <div class="row">
-                        <div class="three cell"><i18n>poll.answers</i18n></div>
-                    </div>
-
-                    <ul class="poll-chart">
-                        <li class="item" ng-repeat="answer in poll.answers">
-                            <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0']] %</h3> 
-                            <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
-                        </li>
-                    </ul>
-                    <h2><i18n>poll.total.vote</i18n> [[totalVotes]]</h2>
-				</div>
-			</div>
-		</div>
-	</div>
-</article>
+<div class="row">
+    <h2>[[poll.question]]</h2>
+    <article class="twelve cell">
+        <ul class="poll-chart">
+            <li class="item" ng-repeat="answer in poll.answers">
+                <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0']] %</h3> 
+                <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
+            </li>
+        </ul>
+        <h3><i18n>poll.total.vote</i18n> [[totalVotes]]</h3>
+    </article>
+</div>
