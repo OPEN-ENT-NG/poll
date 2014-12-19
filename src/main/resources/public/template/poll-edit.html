@@ -30,7 +30,7 @@
             <!-- Answers -->
             <label class="twelve cell"><i18n>poll.answers</i18n></label>
             <div class="twelve cell" ng-repeat="answer in poll.answers">
-                <input class="cell" ng-class="poll.answers.length <= 2 || totalVotes > 0 ? 'twelve' : 'eleven'" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" required />
+                <input class="cell" ng-class="poll.answers.length <= 2 || totalVotes > 0 ? 'twelve' : 'eleven'" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" maxlength="75" required />
                 <button class="cell right-magnet" ng-hide="poll.answers.length <= 2 || totalVotes > 0" ng-click="removeAnswer($index)">x</button>
             </div>
             <button class="vertical-spacing-twice cell right-magnet" ng-hide="totalVotes > 0" ng-click="addNewAnswer()">

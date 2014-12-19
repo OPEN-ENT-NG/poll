@@ -12,7 +12,6 @@
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	
 	"poll.new": "New poll",
-	"poll.view": "Display a poll",
 	"poll.create": "Create",
 	"poll.expired": "(Expired)",
 	

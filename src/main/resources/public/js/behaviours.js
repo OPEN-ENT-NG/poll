@@ -111,6 +111,7 @@ Behaviours.register('poll', {
                         this.content.poll = p;
                         this.content.hasAlreadyVoted = this.hasAlreadyVoted(p);
                         this.content.hasExpired = this.hasExpired(p);
+                        this.content.totalVotes = this.getTotalVotes(p);
 
                         this.$apply();
                     }.bind(this));
@@ -176,6 +177,24 @@ Behaviours.register('poll', {
                  */
                 hasExpired : function(p) {
                     return p && moment().isAfter(p.end);
+                },
+                
+                /**
+                 * Allows to get the total number of votes of the given poll.
+                 * @param p a poll.
+                 * @return the total number of votes of the given poll.
+                 */
+                getTotalVotes : function(p) {
+                    var result = 0;
+                    if (p.answers) {
+                        for (var i = 0; i < p.answers.length; i++) {
+                            var answer = p.answers[i];
+                            if (answer.votes) {
+                                result += answer.votes.length;
+                            }
+                        }
+                    }
+                    return result;
                 }
             }
         }

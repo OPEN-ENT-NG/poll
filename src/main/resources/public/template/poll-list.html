@@ -14,9 +14,9 @@
             <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
         </div>
 		<article>
-			<h1>[[p.question]]</h1>
+			<h1 class="truncate">[[p.question]]</h1>
             <strong class="small-text">[[p.end | date:'dd/MM/yyyy']]</strong>
-            <div class="small-hidden" ng-if="hasExpired(p)"><em><i18n>poll.expired</i18n></em></div>
+            <div ng-if="hasExpired(p)"><em><i18n>poll.expired</i18n></em></div>
 
             <div class="bottom-locked">
                 <behaviour name="manage" resource="p">
