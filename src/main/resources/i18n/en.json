@@ -10,6 +10,7 @@
 	"poll.total.vote": "Total number of voters :",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
+	"poll.save.info": "Poll updated",
 	
 	"poll.new": "New poll",
 	"poll.create": "Create",
@@ -18,6 +19,7 @@
 	"poll.read": "Reader",
 	"poll.contrib": "Contributor",
 	"poll.manager": "Manager",
+	"poll.contrib": "Voter",
 	
 	"group.Teacher" : "All teachers of the group {0}.",
 	"group.Personnel" : "All staff of the group {0}.",

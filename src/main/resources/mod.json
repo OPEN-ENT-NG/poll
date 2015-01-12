@@ -1,12 +1,11 @@
 {
-	"main" : "net.atos.entng.poll.Poll",
-	"port" : 8031,
-	"app-name" : "Poll",
-	"app-address" : "/poll",
-	"app-icon" : "poll-large",
-	"mode": "dev",
-	"integration-mode" : "HTTP",
-	"app-registry.port" : 8012,
-	"entcore.port" : 8090,
-	"auto-redeploy": true
+    "main" : "net.atos.entng.poll.Poll",
+    "port": 8070,
+    "mode": "dev",
+    "auto-redeploy": true,
+    "host" : "http://localhost:8070",
+    "userbook-host" : "http://localhost:8003",
+    "app-name" : "Poll",
+    "app-address" : "http://localhost:8070/poll",
+    "app-icon" : "poll-large"
 }

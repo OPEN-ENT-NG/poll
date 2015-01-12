@@ -78,6 +78,13 @@ public class PollController extends MongoDbControllerHelper {
         });
     }
 
+    @Put("/vote/:id")
+    @ApiDoc("Allows to vote to the poll associated to the given identifier")
+    @SecuredAction(value = "poll.contrib", type = ActionType.RESOURCE)
+    public void vote(HttpServerRequest request) {
+        update(request);
+    }
+
     @Override
     @Delete("/:id")
     @ApiDoc("Allows to delete a poll associated to the given identifier")

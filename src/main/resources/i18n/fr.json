@@ -10,6 +10,7 @@
 	"poll.total.vote": "Nombre total de votants :",
 	
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
+	"poll.save.info": "Sondage mis à jour",
 	
 	"poll.new": "Nouveau sondage",
 	"poll.create": "Créer",
@@ -18,6 +19,7 @@
 	"poll.read": "Lecteur",
 	"poll.contrib": "Contributeur",
 	"poll.manager": "Gestionnaire",
+	"poll.contrib": "Votant",
 	
 	"group.Teacher" : "Tous les enseignants du groupe {0}.",
 	"group.Personnel" : "Tous les personnels du groupe {0}.",

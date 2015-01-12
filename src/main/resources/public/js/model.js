@@ -42,6 +42,7 @@ Poll.prototype.create = function(callback) {
  */
 Poll.prototype.update = function(callback) {
     http().putJson('/poll/' + this._id, this).done(function() {
+        notify.info('poll.save.info');
         if(typeof callback === 'function'){
             callback();
         }

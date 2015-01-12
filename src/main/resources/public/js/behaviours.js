@@ -7,6 +7,9 @@ var pollBehaviours = {
      * Resources set by the user.
      */
     resources : {
+        contrib : {
+            right : 'net-atos-entng-poll-controllers-PollController|vote'
+        },
         manage : {
             right : 'net-atos-entng-poll-controllers-PollController|delete'
         }
@@ -77,7 +80,7 @@ Behaviours.register('poll', {
      * without the prefix <code>xxx</code>.
      */
     resourceRights : function() {
-        return [ 'read', 'manager' ]
+        return [ 'read', 'contrib', 'manager' ]
     },
 
     /**
@@ -86,7 +89,7 @@ Behaviours.register('poll', {
     sniplets : {
         poll : {
             title : 'Sondage',
-            description : 'Participer a un sondage',
+            description : 'Participer à un sondage',
             controller : {
 
                 /**
@@ -113,6 +116,8 @@ Behaviours.register('poll', {
                         this.content.hasExpired = this.hasExpired(p);
                         this.content.totalVotes = this.getTotalVotes(p);
 
+                        Behaviours.applicationsBehaviours.poll.resource(this.content.poll);
+                        
                         this.$apply();
                     }.bind(this));
                 },
@@ -132,19 +137,27 @@ Behaviours.register('poll', {
                  * Allows to vote into the current poll.
                  */
                 vote : function() {
-                    var poll = this.content.poll;
-                    var answer = poll.answers[this.content.selected];
-
+                    // Update vote
+                    var answer = this.content.poll.answers[this.content.selected];
                     if (answer.votes === undefined) {
                         answer.votes = [];
                     }
-
                     answer.votes.push(model.me.userId);
+                    
+                    // Vote
+                    var poll = {};
+                    poll._id = this.content.poll._id;
+                    poll.icon = this.content.poll.icon;
+                    poll.question = this.content.poll.question;
+                    poll.end = this.content.poll.end;
+                    poll.answers = this.content.poll.answers;
+
+                    http().putJson('/poll/vote/' + poll._id, poll);
+
+                    // Update current view
                     delete content.selected;
-
-                    http().putJson('/poll/' + poll._id, poll);
-
                     this.content.hasAlreadyVoted = true;
+                    this.content.totalVotes++;
                 },
 
                 /**

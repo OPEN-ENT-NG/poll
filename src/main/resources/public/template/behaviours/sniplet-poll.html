@@ -8,7 +8,7 @@
             <div class="twelve cell vertical-spacing-twice">
                 <h2>[[content.poll.question]]</h2>
             </div>
-            <div ng-switch on="content.hasAlreadyVoted || content.hasExpired">
+            <div ng-switch on="content.hasAlreadyVoted || content.hasExpired || !content.poll.myRights.contrib">
                 <div ng-switch-when="true">
                     <div class="twelve cell" ng-repeat="answer in content.poll.answers">
                         <div class="cell">[[answer.value]] :</div>
@@ -20,8 +20,8 @@
                 </div>
                 <div ng-switch-default>
                     <div class="twelve cell" ng-repeat="answer in content.poll.answers">
-                        <label for="vote_[[$index]]">
-                            <input id="vote_[[$index]]" type="radio" name="[[content.poll._id]]" ng-model="content.selected" value="[[$index]]" /> [[answer.value]]
+                        <label for="poll_[[content.poll._id]]_answer_[[$index]]">
+                            <input id="poll_[[content.poll._id]]_answer_[[$index]]" type="radio" name="[[content.poll._id]]" ng-model="content.selected" value="[[$index]]" /> [[answer.value]]
                         </label>
                     </div>
                     <div class="vertical-spacing-twice twelve cell">

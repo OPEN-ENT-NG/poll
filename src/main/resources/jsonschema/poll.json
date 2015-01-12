@@ -34,15 +34,6 @@
                 }
             },
             "minItems": 2
-        },
-        "created": {
-            "type": "object"
-        }, 
-        "modified": {
-            "type": "object"
-        },
-        "owner": {
-            "type": "object"
         }
     },
     "required": [
