@@ -52,6 +52,7 @@ function PollController($scope, template, model) {
      * @param event the current event.
      */
     $scope.editPoll = function(poll, event) {
+        poll.showButtons = false;
         $scope.master = poll;
         $scope.poll = angular.copy(poll);
         $scope.totalVotes = $scope.getTotalVotes(poll);
@@ -111,7 +112,6 @@ function PollController($scope, template, model) {
      * Allows to cancel the current delete process.
      */
     $scope.cancelRemovePoll = function() {
-        delete $scope.poll;
         delete $scope.display.confirmDeletePoll;
     };
     
