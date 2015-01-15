@@ -1,7 +1,7 @@
 <div class="row">
     <h2>[[poll.question]]</h2>
     <article class="twelve cell">
-        <ul class="poll-chart">
+        <ul class="barchart">
             <li class="item" ng-repeat="answer in poll.answers">
                 <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0']] %</h3> 
                 <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>

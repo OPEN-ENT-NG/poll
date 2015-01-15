@@ -10,9 +10,13 @@
             </div>
             <div ng-switch on="content.hasAlreadyVoted || content.hasExpired || !content.poll.myRights.contrib">
                 <div ng-switch-when="true">
-                    <div class="twelve cell" ng-repeat="answer in content.poll.answers">
-                        <div class="cell">[[answer.value]] :</div>
-                        <div class="cell">[[answer.votes.length / content.totalVotes * 100 || '0']] %</div>
+                	<div class="twelve cell">
+                        <ul class="barchart">
+                            <li class="item" ng-repeat="answer in content.poll.answers">
+                                <h3>[[answer.value]] : [[answer.votes.length / content.totalVotes * 100 || '0']] %</h3> 
+                                <progress class="item-[[$index % 4]]" max="[[content.totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
+                            </li>
+                        </ul>
                     </div>
                     <div class="twelve cell vertical-spacing-twice">
                         <h3>Nombre total de votants : [[content.totalVotes]]</h3>
