@@ -15,8 +15,11 @@
         </div>
 		<article>
 			<h1 class="truncate">[[p.question]]</h1>
-            <strong class="small-text">[[p.end | date:'dd/MM/yyyy']]</strong>
-            <div ng-if="hasExpired(p)"><em><i18n>poll.expired</i18n></em></div>
+            
+            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
+            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
+
+            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
 
             <div class="bottom-locked">
                 <behaviour name="manage" resource="p">

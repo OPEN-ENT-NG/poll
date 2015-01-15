@@ -14,7 +14,7 @@
 	
 	"poll.new": "Nouveau sondage",
 	"poll.create": "Créer",
-	"poll.expired": "(Expiré)",
+	"poll.expired": "Expiré",
 	
 	"poll.read": "Lecteur",
 	"poll.contrib": "Contributeur",
