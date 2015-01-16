@@ -30,8 +30,18 @@
             <!-- Answers -->
             <label class="twelve cell"><i18n>poll.answers</i18n></label>
             <div class="twelve cell" ng-repeat="answer in poll.answers">
-                <input class="cell" ng-class="poll.answers.length <= 2 || totalVotes > 0 ? 'twelve' : 'eleven'" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" maxlength="75" required />
-                <button class="cell right-magnet" ng-hide="poll.answers.length <= 2 || totalVotes > 0" ng-click="removeAnswer($index)">x</button>
+
+                <div class="square-menu">
+                    <button class="half-top-button" ng-disabled="poll.answers.length <= 2 || totalVotes > 0" ng-click="removeAnswer($index)">x</button>
+                    <div class="buttons-line">
+                        <button ng-disabled="$first|| totalVotes > 0" ng-click="moveUpAnswer($index)">&uarr;</button>
+                        <button ng-disabled="$last || totalVotes > 0" ng-click="moveDownAnswer($index)">&darr;</button>
+                    </div>
+                </div>
+
+                <div class="square-menu-actions">
+                    <input class="twelve cell" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" maxlength="75" required />
+                </div>
             </div>
             <button class="vertical-spacing-twice cell right-magnet" ng-hide="totalVotes > 0" ng-click="addNewAnswer()">
                 <i18n>add</i18n>

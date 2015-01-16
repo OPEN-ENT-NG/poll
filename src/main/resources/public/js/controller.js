@@ -161,6 +161,36 @@ function PollController($scope, template, model) {
     };
     
     /**
+     * Allows to move up the answer given by its index.
+     * @param index the index of the answer to move up.
+     */
+    $scope.moveUpAnswer = function(index) {
+        if ($scope.poll != null) {  
+            var answers = $scope.poll.answers;
+            if (answers != null && index > 0 && index < answers.length) {
+                var tmp = answers[index - 1];
+                answers[index - 1] = answers[index];
+                answers[index] = tmp;
+            }
+        }
+    }
+    
+    /**
+     * Allows to move down the answer given by its index.
+     * @param index the index of the answer to move down.
+     */
+    $scope.moveDownAnswer = function(index) {
+        if ($scope.poll != null) {  
+            var answers = $scope.poll.answers;
+            if (answers != null && index >= 0 && index < answers.length - 1) {
+                var tmp = answers[index + 1];
+                answers[index + 1] = answers[index];
+                answers[index] = tmp;
+            }
+        }
+    }
+    
+    /**
      * Allows to get if the given poll has expired.
      * @param p a poll to test.
      * @return true if the given poll has expired.

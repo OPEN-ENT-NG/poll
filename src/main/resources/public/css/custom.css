@@ -3,3 +3,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.square-menu button.half-top-button {
+    height: 25px;
+    padding-top: 0;
+}
+
+.square-menu-actions input[type="text"] {
+    height: 51px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
