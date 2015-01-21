@@ -1,4 +1,4 @@
-<h1><i18n ng-click="cancelPollEdit()">poll.title</i18n></h1>
+<h1><i class="poll"></i><i18n ng-click="cancelPollEdit()">poll.title</i18n></h1>
 
 <div class="items">
 	<div workflow="poll.create" class="twelve cell">
@@ -10,7 +10,7 @@
 	<hr />
 	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
         <div class="cell">
-            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/forum-default.png" />
+            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
             <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
         </div>
 		<article>
