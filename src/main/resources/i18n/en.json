@@ -11,10 +11,13 @@
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	"poll.save.info": "Poll updated",
+	"poll.select": "Select a poll to display :",
+	"poll.none": "No poll available",
 	
 	"poll.new": "New poll",
 	"poll.create": "Create",
 	"poll.expired": "Expired",
+	"poll.vote" : "Vote",
 	
 	"poll.read": "Reader",
 	"poll.contrib": "Contributor",
