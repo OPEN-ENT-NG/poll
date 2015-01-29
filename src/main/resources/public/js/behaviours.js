@@ -146,13 +146,12 @@ Behaviours.register('poll', {
                     
                     // Vote
                     var poll = {};
-                    poll._id = this.content.poll._id;
                     poll.icon = this.content.poll.icon;
                     poll.question = this.content.poll.question;
                     poll.end = this.content.poll.end;
                     poll.answers = this.content.poll.answers;
 
-                    http().putJson('/poll/vote/' + poll._id, poll);
+                    http().putJson('/poll/vote/' + this.content.poll._id, poll);
 
                     // Update current view
                     delete content.selected;
