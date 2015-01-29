@@ -121,6 +121,8 @@ function PollController($scope, template, model) {
     $scope.removePoll = function() {
         $scope.poll.delete();
         delete $scope.display.confirmDeletePoll;
+        delete $scope.poll;
+        template.close('main');
     };
     
     /**
