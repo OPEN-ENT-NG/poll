@@ -22,7 +22,11 @@
 	"poll.read": "Lecteur",
 	"poll.contrib": "Contributeur",
 	"poll.manager": "Gestionnaire",
-	"poll.contrib": "Votant",
+    "poll.contrib": "Votant",
+
+    "poll.submitted": "Les sondages que j’ai lancé",
+    "poll.answered": "Les sondages auxquels j’ai répondu",
+	"poll.unanswered": "Les sondages auxquels je suis invité à répondre",
 	
     "group.AdminLocal": "Tous les administrateurs locaux",
     "group.Personnel": "Tous les personnels du groupe {0}.",

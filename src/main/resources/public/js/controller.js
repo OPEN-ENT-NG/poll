@@ -218,4 +218,81 @@ function PollController($scope, template, model) {
         }
         return result;
     };
+
+    /**
+    * Get all pool submitted by the current user
+    *
+    */
+    $scope.getPollsSubmitted = function(){
+        var pollsSubmitted= Array();
+        for(var i = 0; i< $scope.polls.all.length; i++){
+            if($scope.polls.all[i].owner.userId == $scope.me.userId){
+                pollsSubmitted.push($scope.polls.all[i]);
+            }
+        }
+        return pollsSubmitted;
+    };
+
+    /**
+    * Get all pool who are shared to the current user
+    *
+    */
+    $scope.getPollsShared = function(){
+        var pollsShared= Array();
+        for(var i = 0; i< $scope.polls.all.length; i++){
+            if($scope.polls.all[i].owner.userId != $scope.me.userId){
+                $scope.polls.all[i].shared.forEach(function(share) {
+                    if(share.userId == $scope.me.userId){
+                        pollsShared.push($scope.polls.all[i]);
+                    }
+                });
+            }
+        }
+        return pollsShared;
+    };
+
+    /**
+    * Get all poll unanswered and shared to the current user 
+    *
+    */
+    $scope.getPollsUnanswered = function(){
+        var pollsUnanswered= Array();
+        var isAnswered; 
+        $scope.getPollsShared().forEach(function(poll){
+            isAnswered = false;
+            poll.answers.forEach(function(answer){
+                if(answer.votes){
+                    answer.votes.forEach(function(vote){
+                        if(vote == $scope.me.userId){
+                            isAnswered = true;
+                        }
+                    });
+                }
+            });
+            if(!isAnswered){
+                pollsUnanswered.push(poll);
+            }
+        });
+        return pollsUnanswered;
+    };
+
+    /**
+    * Get all poll answered
+    *
+    */
+    $scope.getPollsAnswered = function(){
+        var pollsAnswered= Array();
+        $scope.polls.all.forEach(function(poll){
+            poll.answers.forEach(function(answer){
+              if(answer.votes) {
+                answer.votes.forEach(function(vote){
+                    if(vote == $scope.me.userId){
+                        pollsAnswered.push(poll);
+                    }
+                });
+              }
+            });
+        });
+        return pollsAnswered;
+    };
 }

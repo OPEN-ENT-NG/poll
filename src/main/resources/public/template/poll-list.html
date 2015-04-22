@@ -8,13 +8,14 @@
 		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
 	</div>
 	<hr />
-	<div class="row" ng-repeat="p in polls.all" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
+    <h2 class="pollCategory"><i18n>poll.submitted</i18n></h2>
+	<div class="row" ng-repeat="p in getPollsSubmitted()" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
         <div class="cell">
             <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
             <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
         </div>
-		<article>
-			<h1 class="truncate">[[p.question]]</h1>
+        <article>
+            <h1 class="truncate">[[p.question]]</h1>
             
             <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
             <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
@@ -34,8 +35,68 @@
                     <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
                 </behaviour>
             </div>
-		</article>
-	</div>
+        </article>
+    </div>
+    <h2  class="pollCategory"><i18n>poll.unanswered</i18n></h2>
+    <div class="row" ng-repeat="p in getPollsUnanswered()" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
+        <div class="cell">
+            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+            <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+        </div>
+        <article>
+            <h1 class="truncate">[[p.question]]</h1>
+            
+            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
+            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
+
+
+            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
+
+            <div class="bottom-locked">
+                <behaviour name="manage" resource="p">
+                    <input type="checkbox" ng-model="p.showButtons" ng-change="hideAlmostAllButtons(p)" />
+                </behaviour>
+            </div>
+
+            <div class="small-hidden buttons" ng-class="{ hidden: !p.showButtons || p._id !== poll._id }">
+                <behaviour name="manage" resource="p">
+                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
+                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
+                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
+                </behaviour>
+            </div>
+        </article>
+    </div>
+    <h2  class="pollCategory"><i18n>poll.answered</i18n></h2>
+    <div class="row" ng-repeat="p in getPollsAnswered() track by $index" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
+        <div class="cell">
+            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+            <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+        </div>
+        <article>
+            <h1 class="truncate">[[p.question]]</h1>
+            
+            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
+            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
+
+
+            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
+
+            <div class="bottom-locked">
+                <behaviour name="manage" resource="p">
+                    <input type="checkbox" ng-model="p.showButtons" ng-change="hideAlmostAllButtons(p)" />
+                </behaviour>
+            </div>
+
+            <div class="small-hidden buttons" ng-class="{ hidden: !p.showButtons || p._id !== poll._id }">
+                <behaviour name="manage" resource="p">
+                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
+                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
+                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
+                </behaviour>
+            </div>
+        </article>
+    </div>
 </div>
 
 <!-- Allows to display a confirm dialog before deleting a poll -->
