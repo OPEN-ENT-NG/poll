@@ -1,0 +1,8 @@
+<nav class="vertical">
+    <h2 ng-click="cancelPollEdit()">Sondage</h2>
+    <ul>
+        <li ng-repeat="p in polls.all">
+            <a ng-click="openPoll(p)">[[p.question]]</a>
+        </li>
+    </ul>
+</nav>
