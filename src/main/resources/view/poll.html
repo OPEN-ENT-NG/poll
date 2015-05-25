@@ -14,8 +14,27 @@
     <body ng-controller="PollController">
         <portal>
             <div class="row patchwork">
-                <container template="main" class="flexible content cell"></container>
-                <container template="polls" class="flexible navigation" ng-class="{ 'empty-neighbour': template.isEmpty('main'), 'filled-neighbour': !template.isEmpty('main') }"></container>
+                <div class="twelve cell">
+                    <div class="eight cell">
+                        <h1>
+                            <i class="poll">
+                                <side-panel ng-if="pollmodeview" >
+                                    <container template="side-panel"></container>
+                                </side-panel>
+                            </i>
+                            <a><i18n ng-click="cancelPollEdit()">poll.title</i18n></a>
+                            <span ng-if="poll.question && poll.question.trim().length > 0">
+                                : <a ng-click="openPoll(poll)">[[poll.question]]</a>
+                            </span>
+                        </h1>
+                    </div>
+                    <div class="contextual-buttons four cell">
+                        <button ng-if="!pollmodeview" ng-click="newPoll()" workflow="poll.create" class="cell right-magnet">
+                            <i18n>poll.new</i18n>
+                        </button>
+                    </div>
+                </div>
+                <container template="main"></container>
             </div>
         </portal>
     </div>

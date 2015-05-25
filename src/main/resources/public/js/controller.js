@@ -11,9 +11,12 @@ function PollController($scope, template, model) {
     $scope.polls = model.polls;
     $scope.me = model.me;
     $scope.display = {};
+    $scope.pollSelected = [];
+    $scope.searchbar = {}
 
     // By default open the polls list
-    template.open('polls', 'poll-list');
+    template.open('main', 'poll-list');
+    template.open('side-panel', 'side-panel');
 
     /**
      * Allows to open the given poll into the "main" div using the
@@ -23,8 +26,10 @@ function PollController($scope, template, model) {
     $scope.openPoll = function(poll) {
         $scope.poll = poll;
         $scope.hideAlmostAllButtons(poll);
+        $scope.pollmodeview = true;
         $scope.totalVotes = $scope.getTotalVotes(poll);
         template.open('main', 'poll-view');
+        template.close('polls');
     };
     
     /**
@@ -79,8 +84,11 @@ function PollController($scope, template, model) {
     $scope.cancelPollEdit = function() {
         delete $scope.master;
         delete $scope.poll;
+        $scope.pollSelected = [];
         $scope.hideAlmostAllButtons();
+        $scope.pollmodeview = false;
         template.close('main');
+        template.open('main', 'poll-list');
     };
 
     /**
@@ -92,8 +100,12 @@ function PollController($scope, template, model) {
         $scope.master.save(function() {
             $scope.polls.sync(function() {
                 $scope.cancelPollEdit();
+                updateSearchBar();
+                $scope.pollSelected = [];
             });
         });
+       
+        
     };
 
     /**
@@ -168,7 +180,7 @@ function PollController($scope, template, model) {
      */
     $scope.moveUpAnswer = function(index) {
         if ($scope.poll != null) {  
-            var answers = $scope.poll.answers;
+            var answers = $scope.poll.anlswers;
             if (answers != null && index > 0 && index < answers.length) {
                 var tmp = answers[index - 1];
                 answers[index - 1] = answers[index];
@@ -295,4 +307,94 @@ function PollController($scope, template, model) {
         });
         return pollsAnswered;
     };
+    $scope.hasManageRight = function(poll){
+        return poll && poll.myRights.manage;
+    };
+
+    /**
+    * Add and delete polls selected in pollSelected array
+    * @param poll
+    */
+    $scope.togglePollSelected = function(poll){
+
+        if($scope.pollSelected.indexOf(poll)>=0){
+            $scope.pollSelected.splice($scope.pollSelected.indexOf(poll),1);
+        }else{
+            $scope.pollSelected.push(poll);
+        }
+    };
+
+     /**
+     * Allows to put the current poll in the scope and set "confirmDeletePoll"
+     * variable to "true".
+     * @param poll the poll to delete.
+     * @param event an event.
+     */
+    $scope.confirmRemovePolls = function(polls, event) {
+       // $scope.poll = poll;
+        $scope.display.confirmDeletePoll = true;
+        event.stopPropagation();
+    };
+
+    /**
+    * Allows to remove several polls
+    */
+    $scope.removePolls = function(){
+
+
+        _.map($scope.pollSelected, function(pollToRemove){
+            pollToRemove.delete( function(){
+                // Update search bar, without any server call
+                $scope.searchbar = _.filter($scope.searchbar, function(poll){
+                    return poll._id !== pollToRemove._id;
+                });
+            });
+        });
+        delete $scope.display.confirmDeletePoll;
+    };
+
+    var updateSearchBar = function(){
+        $scope.polls.sync(function() {
+            $scope.searchbar =_.map($scope.polls.all, function(poll){
+                return {
+                    title : poll.question,
+                    _id : poll._id,
+                    toString : function() {
+                        return this.title;
+                    }
+                };
+
+           });
+        });
+    };
+    updateSearchBar();
+
+    /**
+    * Open poll from a searchbar
+    * @param poll's id
+    */
+    $scope.openPollFromSearchbar = function(pollId){
+        //window.location.hash = '/view/' + pollId;
+        $scope.openPoll($scope.getPollById(pollId));
+
+    };
+
+    /**
+    * Check if an user ar editing a poll.
+    */
+    $scope.isCreatingOrEditing = function(){
+            return (template.contains('main', 'poll-edit'));
+    };
+
+    /**
+    * Get a poll with an id
+    * @param Poll._id
+    * @return poll
+    */
+    $scope.getPollById = function(pollId){
+        return _.find(model.polls.all, function(poll){
+            return poll._id === pollId;
+        });
+    };
+
 }

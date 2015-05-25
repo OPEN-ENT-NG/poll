@@ -1,101 +1,91 @@
-<h1><i class="poll"></i><i18n ng-click="cancelPollEdit()">poll.title</i18n></h1>
-
 <div class="items">
-	<div workflow="poll.create" class="twelve cell">
-		<div class="cell">
-			<button ng-click="newPoll()"><i18n>poll.new</i18n></button>
-		</div>
-		<i class="open-right right-magnet big-hidden" ng-click="template.close('main')"></i>
-	</div>
-	<hr />
+    <div class="row rigid-grid">
+        <div class="four cell">
+            <autocomplete
+                    options="searchbar"
+                    ng-change="openPollFromSearchbar(selectedPoll._id)"
+                    ng-model="selectedPoll"
+                    ng-if="!isCreatingOrEditing()">
+            </autocomplete>
+        </div>
+    </div>
+    <hr />
     <h2 class="pollCategory"><i18n>poll.submitted</i18n></h2>
-	<div class="row" ng-repeat="p in getPollsSubmitted()" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
-        <div class="cell">
-            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
-            <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+    <div class="fallen dominos">
+        <div class="item" ng-repeat="p in getPollsSubmitted()">
+            <section class="domino cyan">
+                <div class="top" ng-click="openPoll(p)">
+                    <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+                    <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+                </div>
+                <div class="bottom">
+                    <div class="content">
+                        <div class="cell" ng-click="openPoll(p)">
+                            <strong class="truncate">[[p.question]]</strong>
+                            <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
+                            <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
+                            <br />[[p.owner.displayName]]
+                            <br />[[formatDate(p.modified)]]
+                        </div>
+                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
+                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
+                        </div>
+                    </div>                    
+                </div>
+            </section>
         </div>
-        <article>
-            <h1 class="truncate">[[p.question]]</h1>
-            
-            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
-            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
 
-            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
-
-            <div class="bottom-locked">
-                <behaviour name="manage" resource="p">
-                    <input type="checkbox" ng-model="p.showButtons" ng-change="hideAlmostAllButtons(p)" />
-                </behaviour>
-            </div>
-
-            <div class="small-hidden buttons" ng-class="{ hidden: !p.showButtons || p._id !== poll._id }">
-                <behaviour name="manage" resource="p">
-                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
-                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
-                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
-                </behaviour>
-            </div>
-        </article>
     </div>
-    <h2  class="pollCategory"><i18n>poll.unanswered</i18n></h2>
-    <div class="row" ng-repeat="p in getPollsUnanswered()" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
-        <div class="cell">
-            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
-            <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+    <h2 class="pollCategory"><i18n>poll.unanswered</i18n></h2>
+    <div class="fallen dominos">
+        <div class="item" ng-repeat="p in getPollsUnanswered()">
+            <section class="domino cyan">
+                <div class="top" ng-click="openPoll(p)">
+                    <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+                    <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+                </div>
+                <div class="bottom">
+                    <div class="content">
+                        <div class="cell" ng-click="openPoll(p)">
+                            <strong class="truncate">[[p.question]]</strong>
+                            <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
+                            <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
+                            <br />[[p.owner.displayName]]
+                            <br />[[formatDate(p.modified)]]
+                        </div>
+                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
+                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
+                        </div>
+                    </div>                    
+                </div>
+            </section>
         </div>
-        <article>
-            <h1 class="truncate">[[p.question]]</h1>
-            
-            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
-            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
 
-
-            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
-
-            <div class="bottom-locked">
-                <behaviour name="manage" resource="p">
-                    <input type="checkbox" ng-model="p.showButtons" ng-change="hideAlmostAllButtons(p)" />
-                </behaviour>
-            </div>
-
-            <div class="small-hidden buttons" ng-class="{ hidden: !p.showButtons || p._id !== poll._id }">
-                <behaviour name="manage" resource="p">
-                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
-                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
-                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
-                </behaviour>
-            </div>
-        </article>
     </div>
-    <h2  class="pollCategory"><i18n>poll.answered</i18n></h2>
-    <div class="row" ng-repeat="p in getPollsAnswered() track by $index" ng-click="openPoll(p)" ng-class="{ selected: p._id === poll._id }">
-        <div class="cell">
-            <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
-            <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+    <h2 class="pollCategory"><i18n>poll.answered</i18n></h2>
+    <div class="fallen dominos">
+        <div class="item" ng-repeat="p in getPollsAnswered()">
+            <section class="domino cyan">
+                <div class="top" ng-click="openPoll(p)">
+                    <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+                    <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+                </div>
+                <div class="bottom">
+                    <div class="content">
+                        <div class="cell" ng-click="openPoll(p)">
+                            <strong class="truncate">[[p.question]]</strong>
+                            <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
+                            <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
+                            <br />[[p.owner.displayName]]
+                            <br />[[formatDate(p.modified)]]
+                        </div>
+                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
+                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
+                        </div>
+                    </div>                    
+                </div>
+            </section>
         </div>
-        <article>
-            <h1 class="truncate">[[p.question]]</h1>
-            
-            <strong class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</strong>
-            <strong class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></strong>
-
-
-            <div class="small-text" ng-if="me.userId !== p.owner.userId" >[[p.owner.displayName]]</div>
-
-            <div class="bottom-locked">
-                <behaviour name="manage" resource="p">
-                    <input type="checkbox" ng-model="p.showButtons" ng-change="hideAlmostAllButtons(p)" />
-                </behaviour>
-            </div>
-
-            <div class="small-hidden buttons" ng-class="{ hidden: !p.showButtons || p._id !== poll._id }">
-                <behaviour name="manage" resource="p">
-                    <button ng-click="editPoll(p, $event)"><i18n>edit</i18n></button>
-                    <button ng-click="confirmRemovePoll(p, $event)"><i18n>remove</i18n></button>
-                    <button ng-click="sharePoll(p, $event)"><i18n>share</i18n></button>
-                </behaviour>
-            </div>
-        </article>
     </div>
 </div>
 
@@ -103,11 +93,13 @@
 <div ng-if="display.confirmDeletePoll">
     <lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
         <article>
+            
             <div class="row">
                 <i18n>poll.delete.confirm</i18n>
             </div>
+            <p ng-repeat="pollSltd in pollSelected"> [[pollSltd.question]]!</p>
             <div class="row">
-                <button class="right-magnet" ng-click="removePoll()"><i18n>remove</i18n></button>
+                <button class="right-magnet" ng-click="removePolls()"><i18n>remove</i18n></button>
                 <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
             </div>
         </article>
@@ -117,6 +109,33 @@
 <!-- Allows to display the panel to manage share rights -->
 <div ng-if="display.showPanel">
     <lightbox show="display.showPanel" on-close="display.showPanel = false;">
-        <share-panel app-prefix="'poll'" resources="poll"></share-panel>
+        <share-panel app-prefix="'poll'" resources="pollSelected"></share-panel>
     </lightbox>
 </div>
+
+<!-- Display actions for selected polls -->
+<section class="toggle-buttons" ng-class="{ hide: pollSelected.length === 0 }">
+    <div class="toggle">
+        <div class="row">
+            <a class="button cell"  ng-if="pollSelected.length === 1" ng-href="/poll/print?poll=[[polls.selection()[0]._id]]" target="_blank">
+                <i18n>print</i18n>
+            </a>
+            <resource-right name="edit" resource="pollSelected" class="cell">
+                <button ng-if="pollSelected.length === 1"
+                    ng-click="editPoll(pollSelected[0], $event)">
+                    <i18n>properties</i18n>
+                </button>
+            </resource-right>
+            <resource-right name="share" resource="pollSelected" class="cell">
+                <button ng-click="display.showPanel = true">
+                    <i18n>poll.share</i18n>
+                </button>
+            </resource-right>
+            <resource-right name="deleteWiki" resource="pollSelected" class="cell">
+                <button ng-click="display.confirmDeletePoll = true">
+                    <i18n>poll.delete</i18n>
+                </button>
+            </resource-right>
+        </div>
+    </div>
+</section>

@@ -9,15 +9,17 @@
 	"poll.answers": "Réponses",
 	"poll.total.vote": "Nombre total de votant(s) :",
 	
-	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce sondage ?",
+	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce(s) sondage(s) ?",
 	"poll.save.info": "Sondage mis à jour",
 	"poll.select": "Choisissez un sondage à afficher :",
 	"poll.none": "Il n'y a aucun sondage disponible",
 	
-	"poll.new": "Nouveau sondage",
+	"poll.new": "Créer un sondage",
 	"poll.create": "Créer",
 	"poll.expired": "Expiré",
-	"poll.vote" : "Voter",
+    "poll.vote" : "Voter",
+    "poll.share" : "Partager",
+	"poll.delete" : "Supprimer",
 	
 	"poll.read": "Lecteur",
 	"poll.contrib": "Contributeur",
