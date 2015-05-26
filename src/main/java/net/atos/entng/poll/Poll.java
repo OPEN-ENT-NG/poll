@@ -1,6 +1,7 @@
 package net.atos.entng.poll;
 
 import net.atos.entng.poll.controllers.PollController;
+import net.atos.entng.poll.service.PollRepositoryEvents;
 
 import org.entcore.common.http.BaseServer;
 import org.entcore.common.http.filter.ShareAndOwner;
@@ -23,6 +24,8 @@ public class Poll extends BaseServer {
     @Override
     public void start() {
         super.start();
+        // Set RepositoryEvents implementation used to process events published for transition
+        setRepositoryEvents(new PollRepositoryEvents());
 
         MongoDbConf conf = MongoDbConf.getInstance();
         conf.setCollection(POLL_COLLECTION);
