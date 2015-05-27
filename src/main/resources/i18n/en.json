@@ -8,6 +8,7 @@
 	"poll.image": "Associate an image",
 	"poll.answers": "Answers",
 	"poll.total.vote": "Total number of voters :",
+	"poll.deleted.vote": "This poll is unavailable",
 	
 	"poll.delete.confirm": "Do you really want to delete this poll?",
 	"poll.save.info": "Poll updated",

@@ -4,7 +4,12 @@
             <img skin-src="/img/illustrations/poll-default.png" ng-if="(content.poll.icon === undefined)" />
             <img ng-src="[[content.poll.icon]]?thumbnail=120x120" ng-if="content.poll.icon !== undefined" />
         </div>
-        <div class="nine cell left-one">
+        <div class="nine cell left-one" ng-if="content.poll.question === undefined">
+            <div class="twelve cell vertical-spacing-twice">
+                <h2><i18n>poll.deleted.vote</i18n></h2>
+            </div>
+        </div>
+        <div class="nine cell left-one" ng-if="content.poll.question !== undefined">
             <div class="twelve cell vertical-spacing-twice">
                 <h2>[[content.poll.question]]</h2>
             </div>

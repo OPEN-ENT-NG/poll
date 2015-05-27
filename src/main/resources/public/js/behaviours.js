@@ -119,7 +119,9 @@ Behaviours.register('poll', {
                         Behaviours.applicationsBehaviours.poll.resource(this.content.poll);
                         
                         this.$apply();
-                    }.bind(this));
+                    }.bind(this)).error(function(jqXHR, textStatus, errorThrown){
+                        console.log("Erreur:"+jqXHR.status);
+                    });
                 },
 
                 /**

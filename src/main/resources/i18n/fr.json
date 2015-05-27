@@ -8,6 +8,7 @@
 	"poll.image": "Associer une image",
 	"poll.answers": "Réponses",
 	"poll.total.vote": "Nombre total de votant(s) :",
+    "poll.deleted.vote": "Ce sondage n'est plus disponible",
 	
 	"poll.delete.confirm": "Voulez-vous vraiment supprimer ce(s) sondage(s) ?",
 	"poll.save.info": "Sondage mis à jour",
