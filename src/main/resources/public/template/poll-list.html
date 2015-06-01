@@ -74,10 +74,10 @@
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
                             <strong class="truncate">[[p.question]]</strong>
+                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a>
+                            <p class="small-text">[[p.owner.displayName]]</p>
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
-                            <br />[[p.owner.displayName]]
-                            <br />[[formatDate(p.modified)]]
                         </div>
                         <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
                             <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
@@ -117,18 +117,18 @@
 <section class="toggle-buttons" ng-class="{ hide: pollSelected.length === 0 }">
     <div class="toggle">
         <div class="row">
-            <resource-right name="edit" resource="pollSelected" class="cell">
+            <resource-right name="contrib" resource="pollSelected" class="cell">
                 <button ng-if="pollSelected.length === 1"
                     ng-click="editPoll(pollSelected[0], $event)">
                     <i18n>properties</i18n>
                 </button>
             </resource-right>
-            <resource-right name="share" resource="pollSelected" class="cell">
+            <resource-right name="manage" resource="pollSelected" class="cell">
                 <button ng-click="display.showPanel = true">
                     <i18n>poll.share</i18n>
                 </button>
             </resource-right>
-            <resource-right name="deleteWiki" resource="pollSelected" class="cell">
+            <resource-right name="manage" resource="pollSelected" class="cell">
                 <button ng-click="display.confirmDeletePoll = true">
                     <i18n>poll.delete</i18n>
                 </button>
