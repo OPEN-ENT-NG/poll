@@ -1,12 +1,30 @@
 <div class="row">
     <h2>[[poll.question]]</h2>
     <article class="twelve cell">
-        <ul class="barchart">
-            <li class="item" ng-repeat="answer in poll.answers">
-                <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0' | number: 0]] %</h3> 
-                <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
-            </li>
-        </ul>
-        <h3><i18n>poll.total.vote</i18n> [[totalVotes]]</h3>
-    </article>
+        <div ng-switch on="hasAlreadyVoted(poll) || hasExpired(poll) || !poll.myRights.contrib">
+            <div ng-switch-when="true">
+                <div class="twelve cell">
+                    <ul class="barchart">
+                        <li class="item" ng-repeat="answer in poll.answers">
+                            <h3>[[answer.value]] : [[answer.votes.length / totalVotes * 100 || '0' | number: 0]] %</h3> 
+                            <progress class="item-[[$index % 4]]" max="[[totalVotes]]" value="[[answer.votes.length || '0']]"></progress>
+                        </li>
+                    </ul>
+                </div>
+                <div class="twelve cell vertical-spacing-twice">
+                    <h3><i18n>poll.total.vote</i18n> [[totalVotes]]</h3>
+                </div>
+            </div>
+            <div ng-switch-default>
+                <div class="twelve cell" ng-repeat="answer in poll.answers">
+                    <label for="poll_[[poll._id]]_answer_[[$index]]">
+                        <input id="poll_[[poll._id]]_answer_[[$index]]" type="radio" name="[[poll._id]]" ng-model="$parent.selectedAnswer" value="[[$index]]" /> [[answer.value]]
+                    </label>
+                </div>
+                <div class="vertical-spacing-twice twelve cell">
+                <button ng-click="vote(selectedAnswer)"><i18n>poll.vote</i18n></button>
+                </div>
+            </div>
+        </div>
+    </article> 
 </div>

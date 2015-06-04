@@ -13,6 +13,7 @@ function PollController($scope, template, model) {
     $scope.display = {};
     $scope.pollSelected = [];
     $scope.searchbar = {}
+    $scope.selectedAnswer = 0;
 
     // By default open the polls list
     template.open('main', 'poll-list');
@@ -212,6 +213,44 @@ function PollController($scope, template, model) {
     $scope.hasExpired = function (p) {
         return p && moment().isAfter(p.end);
     };
+
+    /**
+    * Return true if current the user already voted
+    * @param p a poll to test
+    * @return true if the current user already voted
+    */
+    $scope.hasAlreadyVoted = function (p) {
+        if (p && p.answers) {
+            for (var i = 0; i < p.answers.length; i++) {
+                var answer = p.answers[i];
+                if (answer.votes) {
+                    for (var j = 0; j < answer.votes.length; j++) {
+                        if (answer.votes[j] === model.me.userId) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    };
+    
+    /**
+    * Allows an user to vote for seleted poll
+    * @param vote index' answer
+    *
+    */
+    $scope.vote = function(vote){
+        if($scope.poll.answers[vote].votes === undefined){
+            $scope.poll.answers[vote].votes = [];
+
+        }
+        $scope.poll.answers[vote].votes.push(model.me.userId);
+        http().putJson('/poll/vote/' + $scope.poll._id, $scope.poll);
+        hasAlreadyVoted = true;
+        $scope.totalVotes++;
+
+    };
     
     /**
      * Allows to get the total number of votes of the given poll.
@@ -298,7 +337,7 @@ function PollController($scope, template, model) {
             poll.answers.forEach(function(answer){
               if(answer.votes) {
                 answer.votes.forEach(function(vote){
-                    if(vote == $scope.me.userId){
+                    if(vote == $scope.me.userId && poll.owner.userId !=$scope.me.userId){
                         pollsAnswered.push(poll);
                     }
                 });

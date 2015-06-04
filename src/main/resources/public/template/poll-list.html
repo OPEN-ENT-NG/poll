@@ -22,10 +22,9 @@
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
                             <strong class="truncate">[[p.question]]</strong>
+                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
-                            <br />[[p.owner.displayName]]
-                            <br />[[formatDate(p.modified)]]
                         </div>
                         <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
                             <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
@@ -48,10 +47,9 @@
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
                             <strong class="truncate">[[p.question]]</strong>
+                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
-                            <br />[[p.owner.displayName]]
-                            <br />[[formatDate(p.modified)]]
                         </div>
                         <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
                             <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
@@ -74,8 +72,7 @@
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
                             <strong class="truncate">[[p.question]]</strong>
-                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a>
-                            <p class="small-text">[[p.owner.displayName]]</p>
+                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
