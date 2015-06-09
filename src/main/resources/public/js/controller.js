@@ -1,3 +1,16 @@
+    /**
+     * Allows to define routes of Poll application.
+     */
+    routes.define(function($routeProvider){
+        $routeProvider
+          .when('/view/:pollId', {
+            action: 'displayFullScreen'
+          }).when('/', {
+            action: 'mainPage'
+          })
+          .otherwise({redirectTo:'/'});
+    });
+
 
 /**
  * Controller for polls. All methods contained in this controller can be called
@@ -5,8 +18,9 @@
  * @param $scope Angular JS model.
  * @param template all templates.
  * @param model the poll model.
+ * @param route system
  */
-function PollController($scope, template, model) {
+function PollController($scope, template, model, route) {
     $scope.template = template;
     $scope.polls = model.polls;
     $scope.me = model.me;
@@ -14,10 +28,24 @@ function PollController($scope, template, model) {
     $scope.pollSelected = [];
     $scope.searchbar = {}
     $scope.selectedAnswer = 0;
+    $scope.notFound = false;
 
-    // By default open the polls list
-    template.open('main', 'poll-list');
-    template.open('side-panel', 'side-panel');
+    route({
+        displayFullScreen: function(params) {
+            $scope.polls.one('sync', function() {
+                var poll = $scope.polls.find(function(p) {
+                    return p._id === params.pollId;
+                });
+                $scope.openPoll(poll);
+            });
+        },
+        mainPage: function() {
+             // By default open the polls list
+            template.open('main', 'poll-list');
+            template.open('side-panel', 'side-panel');
+        }
+    });
+    
 
     /**
      * Allows to open the given poll into the "main" div using the
@@ -25,12 +53,20 @@ function PollController($scope, template, model) {
      * @param poll the current poll to open.
      */
     $scope.openPoll = function(poll) {
-        $scope.poll = poll;
-        $scope.hideAlmostAllButtons(poll);
-        $scope.pollmodeview = true;
-        $scope.totalVotes = $scope.getTotalVotes(poll);
-        template.open('main', 'poll-view');
-        template.close('polls');
+        if(poll === undefined){
+            $scope.notFound = true;
+            console.log('not found');
+            template.open('main', 'poll-view');
+            template.close('polls');
+        }else{ 
+            $scope.notFound = false;
+            $scope.poll = poll;
+            $scope.hideAlmostAllButtons(poll);
+            $scope.pollmodeview = true;
+            $scope.totalVotes = $scope.getTotalVotes(poll);
+            template.open('main', 'poll-view');
+            template.close('polls');
+        }
     };
     
     /**
@@ -234,7 +270,7 @@ function PollController($scope, template, model) {
         }
         return false;
     };
-    
+
     /**
     * Allows an user to vote for seleted poll
     * @param vote index' answer

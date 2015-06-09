@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-if="!notFound">
     <h2>[[poll.question]]</h2>
     <article class="twelve cell">
         <div ng-switch on="hasAlreadyVoted(poll) || hasExpired(poll) || !poll.myRights.contrib">
@@ -27,4 +27,22 @@
             </div>
         </div>
     </article> 
+</div>
+<div ng-if="notFound">
+    <div  class="absolute">
+        <default-styles>
+    
+            <h1><a data-reload><i class="oops"></i><i18n>oops</i18n></a></h1>
+            <article>
+                <div class="row">
+                    <i18n>poll.or.page.notfound.or.unauthorized</i18n>
+                </div>
+    
+                <div class="row vertical-spacing-twice">
+                    <button data-reload onclick="history.go(-1)"><i18n>back</i18n></button>
+                </div>
+            </article>
+    
+        </default-styles>
+    </div>
 </div>

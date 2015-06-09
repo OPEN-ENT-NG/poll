@@ -1,6 +1,8 @@
 package net.atos.entng.poll.controllers;
 
 import org.entcore.common.mongodb.MongoDbControllerHelper;
+import org.entcore.common.user.UserInfos;
+import org.entcore.common.user.UserUtils;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
@@ -103,8 +105,25 @@ public class PollController extends MongoDbControllerHelper {
     @Put("/share/json/:id")
     @ApiDoc("Allows to update the current sharing of the poll given by its identifier")
     @SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
-    public void sharePollSubmit(HttpServerRequest request) {
-        shareJsonSubmit(request, null);
+    public void sharePollSubmit(final HttpServerRequest request) {
+        UserUtils.getUserInfos(eb, request, new Handler<UserInfos>(){
+            @Override
+            public void handle(final UserInfos user){
+                if (user != null) {
+                    final String id = request.params().get("id");
+                    if (id == null || id.trim().isEmpty()) {
+                        badRequest(request);
+                        return;
+                    }
+                    
+                    JsonObject params = new JsonObject();
+                    params.putString("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
+                    .putString("username", user.getUsername())
+                    .putString("pollUri", "/poll#/view/" + id);
+                    shareJsonSubmit(request, "notify-poll-share.html", false, params, "question");
+                }
+            }
+        });
     }
 
     @Put("/share/remove/:id")
