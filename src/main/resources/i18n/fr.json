@@ -28,8 +28,8 @@
     "poll.contrib": "Votant",
 
     "poll.submitted": "Les sondages que j’ai lancés",
-    "poll.answered": "Les sondages auxquels j’ai répondu",
-	"poll.unanswered": "Les sondages auxquels je suis invité à répondre",
+    "poll.answered": "Les sondages auxquels j’ai répondus",
+	"poll.unanswered": "Les sondages auxquels je suis invité(e) à répondre",
     "poll.or.page.notfound.or.unauthorized": "Le sondage demandé n'existe pas, a été supprimé, ou vous n'avez pas les droits pour y accéder.",
 	
     "group.AdminLocal": "Tous les administrateurs locaux",
