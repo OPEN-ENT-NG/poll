@@ -9,32 +9,8 @@
             </autocomplete>
         </div>
     </div>
-    <hr />
-    <h2 class="pollCategory"><i18n>poll.submitted</i18n></h2>
-    <div class="fallen dominos">
-        <div class="item" ng-repeat="p in getPollsSubmitted()">
-            <section class="domino cyan">
-                <div class="top" ng-click="openPoll(p)">
-                    <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
-                    <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
-                </div>
-                <div class="bottom">
-                    <div class="content">
-                        <div class="cell" ng-click="openPoll(p)">
-                            <strong class="truncate">[[p.question]]</strong>
-                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
-                            <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
-                            <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
-                        </div>
-                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
-                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
-                        </div>
-                    </div>                    
-                </div>
-            </section>
-        </div>
+    
 
-    </div>
     <h2 class="pollCategory"><i18n>poll.unanswered</i18n></h2>
     <div class="fallen dominos">
         <div class="item" ng-repeat="p in getPollsUnanswered()">
@@ -46,8 +22,8 @@
                 <div class="bottom">
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
-                            <strong class="truncate">[[p.question]]</strong>
-                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
+                            <strong class="truncate"><acronym title="[[p.question]]">[[p.question]]</acronym></strong>
+                            <a class="truncate" ng-href="/userbook/annuaire#[[p.owner.userId]]" title ="[[p.owner.displayName]]">[[p.owner.displayName]]</a> [[getTotalVotes(p)]] vote(s)
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
@@ -60,7 +36,34 @@
         </div>
 
     </div>
-    <h2 class="pollCategory"><i18n>poll.answered</i18n></h2>
+    <hr />
+    <h2 class="pollCategory" ><i18n>poll.submitted</i18n></h2>
+    <div class="fallen dominos">
+        <div class="item" ng-repeat="p in getPollsSubmitted()">
+            <section class="domino cyan">
+                <div class="top" ng-click="openPoll(p)">
+                    <img ng-if="p.icon === undefined" class="cell" skin-src="/img/illustrations/poll-default.png" />
+                    <img ng-if="p.icon !== undefined" class="cell" ng-src="[[p.icon]]?thumbnail=120x120" />
+                </div>
+                <div class="bottom">
+                    <div class="content">
+                        <div class="cell" ng-click="openPoll(p)">
+                            <strong class="truncate"><acronym title="[[p.question]]">[[p.question]]</acronym></strong>
+                            <a class="truncate" ng-href="/userbook/annuaire#[[p.owner.userId]]" title ="[[p.owner.displayName]]">[[p.owner.displayName]]</a> [[getTotalVotes(p)]] vote(s)
+                            <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
+                            <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
+                        </div>
+                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
+                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
+                        </div>
+                    </div>                    
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <hr />
+    <h2 class="pollCategory"><i18n>poll.finished</i18n></h2>
     <div class="fallen dominos">
         <div class="item" ng-repeat="p in getPollsAnswered()">
             <section class="domino cyan">
@@ -71,8 +74,8 @@
                 <div class="bottom">
                     <div class="content">
                         <div class="cell" ng-click="openPoll(p)">
-                            <strong class="truncate">[[p.question]]</strong>
-                            <br/><a ng-href="/userbook/annuaire#[[p.owner.userId]]">[[p.owner.displayName]]</a><br/> [[getTotalVotes(p)]] vote(s)
+                            <strong class="truncate"><acronym title="[[p.question]]">[[p.question]]</acronym></strong>
+                            <a class="truncate" ng-href="/userbook/annuaire#[[p.owner.userId]]" title ="[[p.owner.displayName]]">[[p.owner.displayName]]</a> [[getTotalVotes(p)]] vote(s)
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
