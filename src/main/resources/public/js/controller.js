@@ -438,9 +438,11 @@ function PollController($scope, template, model, route) {
                 if(poll.owner.userId !=$scope.me.userId){
                     poll.answers.forEach(function(answer){
                         if(answer.votes) {
-                            if(vote == $scope.me.userId && poll.owner.userId !=$scope.me.userId){
-                                isAnswered = true;
-                            }
+                            answer.votes.forEach(function(vote){
+                                if(vote == $scope.me.userId && poll.owner.userId !=$scope.me.userId){
+                                    isAnswered = true;
+                                }
+                            });
                         }
                     });
                     if(isAnswered){
