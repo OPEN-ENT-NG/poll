@@ -377,6 +377,7 @@ function PollController($scope, template, model, route) {
             });
         });
         delete $scope.display.confirmDeletePoll;
+        $scope.pollSelected = [];
     };
 
     var updateSearchBar = function(){
