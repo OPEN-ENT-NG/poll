@@ -5,7 +5,7 @@
 	"poll.head.modify": "Modification d'un sondage",
 	"poll.question": "Question",
 	"poll.end": "Date de fin",
-	"poll.image": "Associer une image",
+	"poll.image": "Associer une vignette",
 	"poll.answers": "Réponses",
 	"poll.total.vote": "Nombre total de votant(s) :",
     "poll.deleted.vote": "Ce sondage n'est plus disponible",

@@ -9,6 +9,15 @@
     
     <article class="twelve cell">
         <form name="form">
+
+            <!-- Images -->
+            <div class="twelve cell">
+                <label class="twelve cell"><i18n>poll.image</i18n></label>
+                <div class="two cell">
+                    <image-select ng-model="poll.icon" default="/img/illustrations/poll-default.png" thumbnails="[{ width: 290, height: 290 }]"></image-select>
+                </div>
+            </div>
+
             <!-- Question -->
             <label class="twelve cell"><i18n>poll.question</i18n></label> 
             <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required /> 
@@ -19,13 +28,7 @@
                 <date-picker ng-model="poll.end"></date-picker>
             </div>
 
-            <!-- Images -->
-            <div class="twelve cell">
-                <label class="twelve cell"><i18n>poll.image</i18n></label>
-                <div class="two cell">
-                    <image-select ng-model="poll.icon" default="/img/illustrations/poll-default.png" thumbnails="[{ width: 290, height: 290 }]"></image-select>
-                </div>
-            </div>
+            
 
             <!-- Answers -->
             <label class="twelve cell"><i18n>poll.answers</i18n></label>
