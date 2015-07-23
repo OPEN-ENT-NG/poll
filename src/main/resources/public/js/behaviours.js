@@ -1,3 +1,5 @@
+console.log('poll behaviours loaded');
+
 /**
  * Define rights for behaviours.
  */
@@ -38,7 +40,7 @@ Behaviours.register('poll', {
     /**
      * Allows to set rights for behaviours.
      */
-    resource : function(resource) {
+    resourceRights : function(resource) {
         var rightsContainer = resource;
         if (!resource.myRights) {
             resource.myRights = {};
@@ -74,16 +76,6 @@ Behaviours.register('poll', {
     },
 
     /**
-     * Allows to define all rights to display in the share windows. Names are
-     * defined in the server part with
-     * <code>@SecuredAction(value = "xxxx.read", type = ActionType.RESOURCE)</code>
-     * without the prefix <code>xxx</code>.
-     */
-    resourceRights : function() {
-        return [ 'read', 'contrib', 'manager' ]
-    },
-
-    /**
      * Allows to define the poll sniplet
      */
     sniplets : {
@@ -116,12 +108,23 @@ Behaviours.register('poll', {
                         this.content.hasExpired = this.hasExpired(p);
                         this.content.totalVotes = this.getTotalVotes(p);
 
-                        Behaviours.applicationsBehaviours.poll.resource(this.content.poll);
+                        Behaviours.applicationsBehaviours.poll.resourceRights(this.content.poll);
                         
                         this.$apply();
                     }.bind(this)).error(function(jqXHR, textStatus, errorThrown){
                         console.log("Erreur:"+jqXHR.status);
                     });
+                },
+                
+                /** Function used by application "Pages", to copy rights from "Pages" to resources. 
+                 * It returns an array containing all resources' ids which are concerned by the rights copy.
+                 * For sniplet "poll", copy rights from "Pages" to associated poll
+                 * @param source
+                 */
+                getReferencedResources: function(source){
+                    if(source._id){
+                        return [source._id];
+                    }
                 },
 
                 /**
@@ -156,7 +159,7 @@ Behaviours.register('poll', {
                     http().putJson('/poll/vote/' + this.content.poll._id, poll);
 
                     // Update current view
-                    delete content.selected;
+                    delete this.content.selected;
                     this.content.hasAlreadyVoted = true;
                     this.content.totalVotes++;
                 },

@@ -3,7 +3,7 @@
 <div class="row">
     <article>
         <ul class="illustrated-list">
-            <li ng-repeat="p in polls" ng-click="setSnipletSource(p)">
+            <li ng-repeat="p in polls" ng-click="setSnipletSource({_id: p._id}); snipletResource.synchronizeRights();">
                 <a class="name">[[p.question]]</a>
             </li>
         </ul>
