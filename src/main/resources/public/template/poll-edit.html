@@ -6,7 +6,13 @@
     <h2 ng-if="poll._id">
         <i18n>poll.head.modify</i18n>
     </h2>
-    
+
+    <a ng-click="openPoll(poll)" ng-if="poll.question && poll.question.trim().length > 0">
+        <h2 class="info">
+            [[poll.question]]
+        </h2>
+    </a>
+
     <article class="twelve cell">
         <form name="form">
 
@@ -19,16 +25,16 @@
             </div>
 
             <!-- Question -->
-            <label class="twelve cell"><i18n>poll.question</i18n></label> 
-            <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required /> 
-            
+            <label class="twelve cell"><i18n>poll.question</i18n></label>
+            <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required />
+
             <!-- End -->
             <label class="twelve cell"><i18n>poll.end</i18n></label>
             <div class="twelve cell">
                 <date-picker ng-model="poll.end"></date-picker>
             </div>
 
-            
+
 
             <!-- Answers -->
             <label class="twelve cell"><i18n>poll.answers</i18n></label>
