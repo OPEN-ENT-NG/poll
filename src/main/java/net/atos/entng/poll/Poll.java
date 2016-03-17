@@ -3,9 +3,11 @@ package net.atos.entng.poll;
 import net.atos.entng.poll.controllers.PollController;
 import net.atos.entng.poll.service.PollRepositoryEvents;
 
+import net.atos.entng.poll.service.PollSearchingEvents;
 import org.entcore.common.http.BaseServer;
 import org.entcore.common.http.filter.ShareAndOwner;
 import org.entcore.common.mongodb.MongoDbConf;
+import org.entcore.common.service.impl.MongoDbSearchService;
 
 /**
  * Server to manage polls. This class is the entry point of the Vert.x module.
@@ -26,6 +28,7 @@ public class Poll extends BaseServer {
         super.start();
         // Set RepositoryEvents implementation used to process events published for transition
         setRepositoryEvents(new PollRepositoryEvents());
+        setSearchingEvents(new PollSearchingEvents(new MongoDbSearchService(POLL_COLLECTION)));
 
         MongoDbConf conf = MongoDbConf.getInstance();
         conf.setCollection(POLL_COLLECTION);
