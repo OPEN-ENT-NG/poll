@@ -137,12 +137,16 @@ public class PollController extends MongoDbControllerHelper {
                         badRequest(request);
                         return;
                     }
-                    
+
                     JsonObject params = new JsonObject();
-                    params.putString("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
+                    params.putString("uri", container.config().getString("host", "http://localhost:8090") +
+                        "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
                     .putString("username", user.getUsername())
-                    .putString("pollUri", "/poll#/view/" + id);
-                    shareJsonSubmit(request, "notify-poll-share.html", false, params, "question");
+                    .putString("pollUri", container.config().getString("host", "http://localhost:8090") +
+                        "/poll#/view/" + id);
+                    params.putString("resourceUri", params.getString("pollUri"));
+
+                    shareJsonSubmit(request, "poll.share", false, params, "question");
                 }
             }
         });
