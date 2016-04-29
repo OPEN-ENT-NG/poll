@@ -37,6 +37,31 @@ var pollBehaviours = {
 Behaviours.register('poll', {
     behaviours : pollBehaviours,
 
+    loadResources: function(callback){
+        http().get('/poll/list/all').done(function(infos) {
+            var infosArray = _.map(infos, function(info){
+                var threadIcon;
+                if (!info.icon) {
+                    threadIcon = '/img/icons/glyphicons_036_file.png';
+                }
+                else {
+                    threadIcon = info.icon + '?thumbnail=48x48';
+                }
+                return {
+                    title : info.question,
+                    ownerName : info.unsername,
+                    icon : threadIcon,
+                    path : '/poll#/view/' + info._id,
+                    id : info._id,
+                };
+            });
+            this.resources = _.compact(_.flatten(infosArray));
+            if(typeof callback === 'function'){
+                callback(this.resources);
+            }
+        }.bind(this));
+    },
+
     /**
      * Allows to set rights for behaviours.
      */
