@@ -218,8 +218,8 @@ function PollController($scope, template, model, route) {
      * @param index the index of the answer to move up.
      */
     $scope.moveUpAnswer = function(index) {
-        if ($scope.poll != null) {  
-            var answers = $scope.poll.anlswers;
+        if ($scope.poll != null) {
+            var answers = $scope.poll.answers;
             if (answers != null && index > 0 && index < answers.length) {
                 var tmp = answers[index - 1];
                 answers[index - 1] = answers[index];
@@ -233,7 +233,7 @@ function PollController($scope, template, model, route) {
      * @param index the index of the answer to move down.
      */
     $scope.moveDownAnswer = function(index) {
-        if ($scope.poll != null) {  
+        if ($scope.poll != null) {
             var answers = $scope.poll.answers;
             if (answers != null && index >= 0 && index < answers.length - 1) {
                 var tmp = answers[index + 1];
