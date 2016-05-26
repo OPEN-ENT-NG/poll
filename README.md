@@ -58,6 +58,8 @@ Sondage permet de créer une question à laquelle les utilisateurs sélectionné
 Des permissions sur les différentes actions possibles sur les sondages, dont la contribution et la gestion, sont configurées dans sondage (via des partages Ent-core).
 Le droit de lecture, correspondant à qui peut consulter le sondage est également configuré de cette manière.
 
+Sondage met en œuvre un comportement de recherche sur les questions.
+
 ## Modèle de persistance
 
 Les données du module sont stockées dans une collection Mongo :
@@ -70,6 +72,11 @@ Le module serveur utilise un contrôleur de déclaration :
 * `PollController` : Point d'entrée à l'application, Routage des vues, sécurité globale et déclaration de l'ensemble des comportements relatifs aux sondages (liste, création, modification, destruction, vote et partage)
 
 Le contrôleur étend les classes du framework Ent-core exploitant les CrudServices de base.
+
+Le module serveur met en œuvre deux évènements issus du framework Ent-core :
+
+* `PollRepositoryEvents` : Logique de changement d'année scolaire
+* `PollSearchingEvents` : Logique de recherche
 
 Un jsonschema permet de vérifier les données reçues par le serveur, il se trouve dans le dossier "src/main/resources/jsonschema".
 
