@@ -47,7 +47,10 @@ public class Poll extends BaseServer {
         super.start();
         // Set RepositoryEvents implementation used to process events published for transition
         setRepositoryEvents(new PollRepositoryEvents());
-        setSearchingEvents(new PollSearchingEvents(new MongoDbSearchService(POLL_COLLECTION)));
+
+        if (config.getBoolean("searching-event", true)) {
+            setSearchingEvents(new PollSearchingEvents(new MongoDbSearchService(POLL_COLLECTION)));
+        }
 
         MongoDbConf conf = MongoDbConf.getInstance();
         conf.setCollection(POLL_COLLECTION);
