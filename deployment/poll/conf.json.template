@@ -6,6 +6,7 @@
         "app-name" : "Poll",
         "app-address" : "/poll",
         "app-icon" : "poll-large",
+        "auto-redeploy": false,
         "host": "${host}",
         "ssl" : $ssl,
         "userbook-host": "${host}",
