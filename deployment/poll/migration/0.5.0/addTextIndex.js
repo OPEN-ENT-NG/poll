@@ -1,0 +1,1 @@
+db.poll.createIndex({ "question": "text" });
