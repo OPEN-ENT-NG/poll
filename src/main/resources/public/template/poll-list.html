@@ -9,7 +9,7 @@
             </autocomplete>
         </div>
     </div>
-    
+
 
     <h2 class="pollCategory"><i18n>poll.unanswered</i18n></h2>
     <div class="fallen dominos">
@@ -27,11 +27,11 @@
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
-                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
-                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
+                <span ng-show="hasManageRight(p)" >
+                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                </span>
             </section>
         </div>
 
@@ -53,11 +53,11 @@
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
-                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
-                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
+                <span ng-show="hasManageRight(p)">
+                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                </span>
             </section>
         </div>
 
@@ -79,11 +79,11 @@
                             <p class="small-text" ng-if="!hasExpired(p)">[[p.end | date:'dd/MM/yyyy']]</p>
                             <p class="small-text" ng-if="hasExpired(p)"><i18n>poll.expired</i18n></p>
                         </div>
-                        <div ng-show="hasManageRight(p)" class="bottom-locked eleven vertical-spacing-twice">
-                            <input type="checkbox" ng-change="togglePollSelected(p)" data-ng-model="poll.selected" class="right-magnet cell" />
-                        </div>
-                    </div>                    
+                    </div>
                 </div>
+                <span ng-show="hasManageRight(p)">
+                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                </span>
             </section>
         </div>
     </div>
@@ -93,7 +93,7 @@
 <div ng-if="display.confirmDeletePoll">
     <lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
         <article>
-            
+
             <div class="row">
                 <i18n>poll.delete.confirm</i18n>
             </div>
