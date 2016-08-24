@@ -158,10 +158,10 @@ public class PollController extends MongoDbControllerHelper {
                     }
 
                     JsonObject params = new JsonObject();
-                    params.putString("uri", container.config().getString("host", "http://localhost:8090") +
+                    params.putString("uri", getScheme(request) + getHost(request) +
                         "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
                     .putString("username", user.getUsername())
-                    .putString("pollUri", container.config().getString("host", "http://localhost:8090") +
+                    .putString("pollUri", getScheme(request) + getHost(request) +
                         "/poll#/view/" + id);
                     params.putString("resourceUri", params.getString("pollUri"));
 
