@@ -158,11 +158,9 @@ public class PollController extends MongoDbControllerHelper {
                     }
 
                     JsonObject params = new JsonObject();
-                    params.putString("uri", getScheme(request) + getHost(request) +
-                        "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
+                    params.putString("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
                     .putString("username", user.getUsername())
-                    .putString("pollUri", getScheme(request) + getHost(request) +
-                        "/poll#/view/" + id);
+                    .putString("pollUri",  "/poll#/view/" + id);
                     params.putString("resourceUri", params.getString("pollUri"));
 
                     shareJsonSubmit(request, "poll.share", false, params, "question");
