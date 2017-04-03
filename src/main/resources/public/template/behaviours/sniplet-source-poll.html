@@ -1,11 +1,16 @@
-<h1><i18n>poll.title</i18n></h1>
-<h2><i18n>poll.select</i18n></h2>
-<div class="row">
-    <article>
-        <ul class="illustrated-list">
-            <li ng-repeat="p in polls" ng-click="setSnipletSource({_id: p._id}); snipletResource.synchronizeRights();">
-                <a class="name">[[p.question]]</a>
-            </li>
-        </ul>
-    </article>
+<div class="open-source">
+	<button ng-click="showPickPoll = true"><i18n>sniplet.add.poll</i18n></button>
 </div>
+
+<lightbox show="showPickPoll">
+    <h2><i18n>poll.select</i18n></h2>
+    <div class="row">
+        <article>
+            <ul class="illustrated-list">
+                <li ng-repeat="p in polls" ng-click="setSnipletSource({_id: p._id}); snipletResource.synchronizeRights();">
+                    <a class="name">[[p.question]]</a>
+                </li>
+            </ul>
+        </article>
+    </div>
+</lightbox>
