@@ -105,8 +105,8 @@ Behaviours.register('poll', {
      */
     sniplets : {
         poll : {
-            title : 'Sondage',
-            description : 'Participer à un sondage',
+            title : 'poll.sniplet.title',
+            description : 'poll.sniplet.title',
             controller : {
 
                 /**
