@@ -35,6 +35,8 @@
     "poll.or.page.notfound.or.unauthorized": "Le sondage demandé n'existe pas, a été supprimé, ou vous n'avez pas les droits pour y accéder.",
 
     "sniplet.add.poll": "Ajouter un sondage",
+    "poll.sniplet.title": "Sondage",
+    "poll.sniplet.desc": "Sondage",
 	
     "group.AdminLocal": "Tous les administrateurs locaux du groupe {0}.",
     "group.Personnel": "Tous les personnels du groupe {0}.",
