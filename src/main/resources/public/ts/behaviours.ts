@@ -1,3 +1,6 @@
+import { Behaviours, http, model, notify, Shareable, moment, _ } from 'entcore';
+import { pollModel } from './model';
+
 console.log('poll behaviours loaded');
 
 /**
@@ -159,7 +162,15 @@ Behaviours.register('poll', {
                  */
                 copyRights : function(snipletResource, source) {
                     source.polls.forEach(function(poll) {
-                        Behaviours.copyRights(snipletResource, poll, pollBehaviours.viewRights, 'poll');
+                        let provider = {
+                            resource: snipletResource as Shareable,
+                            application: poll as string
+                        }; 
+                        let target = {
+                            resources: Behaviours.applicationsBehaviours.viewRights as Shareable[],
+                            application: 'poll'
+                        }; 
+                        Behaviours.copyRights({provider, target});
                     });
                 },
 
@@ -175,7 +186,7 @@ Behaviours.register('poll', {
                     answer.votes.push(model.me.userId);
                     
                     // Vote
-                    var poll = {};
+                    var poll: any = {};
                     poll.icon = this.content.poll.icon;
                     poll.question = this.content.poll.question;
                     poll.end = this.content.poll.end;

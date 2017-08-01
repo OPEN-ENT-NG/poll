@@ -90,28 +90,23 @@
 </div>
 
 <!-- Allows to display a confirm dialog before deleting a poll -->
-<div ng-if="display.confirmDeletePoll">
-    <lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
-        <article>
-
-            <div class="row">
-                <i18n>poll.delete.confirm</i18n>
-            </div>
-            <p ng-repeat="pollSltd in pollSelected"> [[pollSltd.question]]!</p>
-            <div class="row">
-                <button class="right-magnet" ng-click="removePolls()"><i18n>remove</i18n></button>
-                <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
-            </div>
-        </article>
-    </lightbox>
-</div>
+<lightbox show="display.confirmDeletePoll" on-close="cancelRemovePoll()">
+    <article>
+        <div class="row">
+            <i18n>poll.delete.confirm</i18n>
+        </div>
+        <p ng-repeat="pollSltd in pollSelected">[[pollSltd.question]]!</p>
+        <div class="row">
+            <button class="right-magnet" ng-click="removePolls()"><i18n>remove</i18n></button>
+            <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
+        </div>
+    </article>
+</lightbox>
 
 <!-- Allows to display the panel to manage share rights -->
-<div ng-if="display.showPanel">
-    <lightbox show="display.showPanel" on-close="display.showPanel = false;">
-        <share-panel app-prefix="'poll'" resources="pollSelected"></share-panel>
-    </lightbox>
-</div>
+<lightbox show="display.showPanel" on-close="display.showPanel = false;">
+    <share-panel app-prefix="'poll'" resources="pollSelected"></share-panel>
+</lightbox>
 
 <!-- Display actions for selected polls -->
 <section class="toggle-buttons" ng-class="{ hide: pollSelected.length === 0 }">

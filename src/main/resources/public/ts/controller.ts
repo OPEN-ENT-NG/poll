@@ -1,15 +1,18 @@
-    /**
-     * Allows to define routes of Poll application.
-     */
-    routes.define(function($routeProvider){
-        $routeProvider
-          .when('/view/:pollId', {
-            action: 'displayFullScreen'
-          }).when('/', {
-            action: 'mainPage'
-          })
-          .otherwise({redirectTo:'/'});
-    });
+import { http, template, routes, model, moment, $, _, angular, ng } from 'entcore'; 
+import { pollModel, answerModel } from './model';
+
+/**
+ * Allows to define routes of Poll application.
+ */
+routes.define(function($routeProvider){
+    $routeProvider
+        .when('/view/:pollId', {
+        action: 'displayFullScreen'
+        }).when('/', {
+        action: 'mainPage'
+        })
+        .otherwise({redirectTo:'/'})
+});
 
 
 /**
@@ -17,16 +20,16 @@
  * from the view.
  * @param $scope Angular JS model.
  * @param template all templates.
- * @param model the poll model.
  * @param route system
+ * @param $event $event service
  */
-function PollController($scope, template, model, route) {
+export let pollController =  ng.controller('PollController', ['$scope', 'route', function($scope, route) {
     $scope.template = template;
-    $scope.polls = model.polls;
+    $scope.polls = pollModel.polls;
     $scope.me = model.me;
     $scope.display = {};
     $scope.pollSelected = [];
-    $scope.searchbar = {}
+    $scope.searchbar = {};
     $scope.selectedAnswer = 0;
     $scope.notFound = false;
 
@@ -76,11 +79,11 @@ function PollController($scope, template, model, route) {
      * the "main" div. By default, the end of the poll is set to now + 7.
      */
     $scope.newPoll = function() {
-        $scope.poll = new Poll();
+        $scope.poll = new pollModel.Poll();
         $scope.poll.end = moment().add(7, 'days').toDate();
         $scope.poll.answers = [];
-        $scope.poll.answers.push(new Answer());
-        $scope.poll.answers.push(new Answer());
+        $scope.poll.answers.push(new answerModel.Answer());
+        $scope.poll.answers.push(new answerModel.Answer());
         $scope.totalVotes = 0;
         template.open('main', 'poll-edit');
     };
@@ -128,6 +131,7 @@ function PollController($scope, template, model, route) {
         $scope.pollmodeview = false;
         template.close('main');
         template.open('main', 'poll-list');
+        $scope.polls.sync();
     };
 
     /**
@@ -141,6 +145,7 @@ function PollController($scope, template, model, route) {
                 $scope.cancelPollEdit();
                 updateSearchBar();
                 $scope.pollSelected = [];
+                $scope.$apply();
             });
         });
        
@@ -196,7 +201,7 @@ function PollController($scope, template, model, route) {
             if ($scope.poll.answers === undefined) {
                 $scope.poll.answers = [];
             }
-            $scope.poll.answers.push(new Answer());
+            $scope.poll.answers.push(new answerModel.Answer());
         }
     };
 
@@ -285,7 +290,7 @@ function PollController($scope, template, model, route) {
         }
         $scope.poll.answers[vote].votes.push(model.me.userId);
         http().putJson('/poll/vote/' + $scope.poll._id, $scope.poll);
-        hasAlreadyVoted = true;
+        $scope.poll.hasAlreadyVoted = true;
         $scope.totalVotes++;
 
     };
@@ -342,11 +347,13 @@ function PollController($scope, template, model, route) {
     * @param poll
     */
     $scope.togglePollSelected = function(poll){
-
-        if($scope.pollSelected.indexOf(poll)>=0){
-            $scope.pollSelected.splice($scope.pollSelected.indexOf(poll),1);
-        }else{
+        if ($(event.target).parent().parent().hasClass('selected') && !poll.selected) {
+            poll.selected = true;
             $scope.pollSelected.push(poll);
+        }
+        else {
+            delete poll.selected;
+            $scope.pollSelected.splice($scope.pollSelected.indexOf(poll),1);
         }
     };
 
@@ -357,7 +364,6 @@ function PollController($scope, template, model, route) {
      * @param event an event.
      */
     $scope.confirmRemovePolls = function(polls, event) {
-       // $scope.poll = poll;
         $scope.display.confirmDeletePoll = true;
         event.stopPropagation();
     };
@@ -366,18 +372,26 @@ function PollController($scope, template, model, route) {
     * Allows to remove several polls
     */
     $scope.removePolls = function(){
-
-
         _.map($scope.pollSelected, function(pollToRemove){
-            pollToRemove.delete( function(){
-                // Update search bar, without any server call
-                $scope.searchbar = _.filter($scope.searchbar, function(poll){
-                    return poll._id !== pollToRemove._id;
+            pollToRemove.delete(function(){
+                $scope.polls.sync(function(){
+                    delete $scope.display.confirmDeletePoll;
+                    $scope.pollSelected = [];
+                    // Update search bar, without any server call
+                    $scope.searchbar = _.filter($scope.searchbar, function(poll){
+                        return poll._id !== pollToRemove._id;
+                    });
+                    //Manually remove from corresponding poll array
+                    if (_.find($scope.myPolls, function(item){ return item._id == pollToRemove._id ? true : false }))
+                        $scope.myPolls.splice($scope.myPolls.indexOf(pollToRemove), 1);
+                    else if (_.find($scope.pollsFinished, function(item){ return item._id == pollToRemove._id ? true : false }))
+                        $scope.pollsFinished.splice($scope.pollsFinished.indexOf(pollToRemove), 1);
+                    else if (_.find($scope.pollsUnanswered, function(item){ return item._id == pollToRemove._id ? true : false }))
+                        $scope.pollsUnanswered.splice($scope.pollsUnanswered.indexOf(pollToRemove), 1);
+                    $scope.$apply();
                 });
             });
         });
-        delete $scope.display.confirmDeletePoll;
-        $scope.pollSelected = [];
     };
 
     var updateSearchBar = function(){
@@ -419,7 +433,7 @@ function PollController($scope, template, model, route) {
     * @return poll
     */
     $scope.getPollById = function(pollId){
-        return _.find(model.polls.all, function(poll){
+        return _.find(pollModel.polls.all, function(poll){
             return poll._id === pollId;
         });
     };
@@ -463,4 +477,4 @@ function PollController($scope, template, model, route) {
         });
     };
     
-}
+}]);
