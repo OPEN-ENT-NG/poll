@@ -28,7 +28,6 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     $scope.polls = pollModel.polls;
     $scope.me = model.me;
     $scope.display = {};
-    $scope.pollSelected = [];
     $scope.searchbar = {};
     $scope.selectedAnswer = 0;
     $scope.notFound = false;
@@ -126,7 +125,6 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     $scope.cancelPollEdit = function() {
         delete $scope.master;
         delete $scope.poll;
-        $scope.pollSelected = [];
         $scope.hideAlmostAllButtons();
         $scope.pollmodeview = false;
         template.close('main');
@@ -144,7 +142,6 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             $scope.polls.sync(function() {
                 $scope.cancelPollEdit();
                 updateSearchBar();
-                $scope.pollSelected = [];
                 $scope.$apply();
             });
         });
@@ -342,21 +339,6 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         return poll && poll.myRights.manage;
     };
 
-    /**
-    * Add and delete polls selected in pollSelected array
-    * @param poll
-    */
-    $scope.togglePollSelected = function(poll){
-        if ($(event.target).parent().parent().hasClass('selected') && !poll.selected) {
-            poll.selected = true;
-            $scope.pollSelected.push(poll);
-        }
-        else {
-            delete poll.selected;
-            $scope.pollSelected.splice($scope.pollSelected.indexOf(poll),1);
-        }
-    };
-
      /**
      * Allows to put the current poll in the scope and set "confirmDeletePoll"
      * variable to "true".
@@ -372,11 +354,11 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     * Allows to remove several polls
     */
     $scope.removePolls = function(){
-        _.map($scope.pollSelected, function(pollToRemove){
+        let pollsToRemove = $scope.polls.filter(p => p.selected == true);
+        _.each(pollsToRemove, function(pollToRemove){
             pollToRemove.delete(function(){
                 $scope.polls.sync(function(){
                     delete $scope.display.confirmDeletePoll;
-                    $scope.pollSelected = [];
                     // Update search bar, without any server call
                     $scope.searchbar = _.filter($scope.searchbar, function(poll){
                         return poll._id !== pollToRemove._id;

@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <span ng-show="hasManageRight(p)" >
-                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                        <check-tool ng-model="p.selected" ng-click="$event.stopPropagation()"></check-tool>
                 </span>
             </section>
         </div>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <span ng-show="hasManageRight(p)">
-                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                    <check-tool ng-model="p.selected" ng-click="$event.stopPropagation()"></check-tool>
                 </span>
             </section>
         </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <span ng-show="hasManageRight(p)">
-                    <check-tool ng-model="poll.selected" ng-click="$event.stopPropagation()" ng-change="togglePollSelected(p)"></check-tool>
+                    <check-tool ng-model="p.selected" ng-click="$event.stopPropagation()"></check-tool>
                 </span>
             </section>
         </div>
@@ -95,7 +95,7 @@
         <div class="row">
             <i18n>poll.delete.confirm</i18n>
         </div>
-        <p ng-repeat="pollSltd in pollSelected">[[pollSltd.question]]!</p>
+        <p ng-repeat="pollSltd in polls.selection()">[[pollSltd.question]]!</p>
         <div class="row">
             <button class="right-magnet" ng-click="removePolls()"><i18n>remove</i18n></button>
             <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelRemovePoll()" />
@@ -105,25 +105,25 @@
 
 <!-- Allows to display the panel to manage share rights -->
 <lightbox show="display.showPanel" on-close="display.showPanel = false;">
-    <share-panel app-prefix="'poll'" resources="pollSelected"></share-panel>
+    <share-panel app-prefix="'poll'" resources="polls.selection()"></share-panel>
 </lightbox>
 
 <!-- Display actions for selected polls -->
-<section class="toggle-buttons" ng-class="{ hide: pollSelected.length === 0 }">
+<section class="toggle-buttons" ng-class="{ hide: polls.selection().length < 1 }">
     <div class="toggle">
         <div class="row">
-            <resource-right name="contrib" resource="pollSelected" class="cell">
-                <button ng-if="pollSelected.length === 1"
-                    ng-click="editPoll(pollSelected[0], $event)">
+            <resource-right name="contrib" resource="polls.selection()" class="cell">
+                <button ng-if="polls.selection().length === 1"
+                    ng-click="editPoll(polls.selection()[0], $event)">
                     <i18n>properties</i18n>
                 </button>
             </resource-right>
-            <resource-right name="manage" resource="pollSelected" class="cell">
+            <resource-right name="manage" resource="polls.selection()" class="cell">
                 <button ng-click="display.showPanel = true">
                     <i18n>poll.share</i18n>
                 </button>
             </resource-right>
-            <resource-right name="manage" resource="pollSelected" class="cell">
+            <resource-right name="manage" resource="polls.selection()" class="cell">
                 <button ng-click="display.confirmDeletePoll = true">
                     <i18n>poll.delete</i18n>
                 </button>
