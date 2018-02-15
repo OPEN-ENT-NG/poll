@@ -43,7 +43,7 @@ public class Poll extends BaseServer {
      * Entry point of the Vert.x module
      */
     @Override
-    public void start() {
+    public void start() throws Exception {
         super.start();
         // Set RepositoryEvents implementation used to process events published for transition
         setRepositoryEvents(new PollRepositoryEvents());

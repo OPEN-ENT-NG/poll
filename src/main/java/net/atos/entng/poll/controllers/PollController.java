@@ -28,12 +28,12 @@ import org.entcore.common.events.EventStoreFactory;
 import org.entcore.common.mongodb.MongoDbControllerHelper;
 import org.entcore.common.user.UserInfos;
 import org.entcore.common.user.UserUtils;
-import org.vertx.java.core.Handler;
-import org.vertx.java.core.Vertx;
-import org.vertx.java.core.http.HttpServerRequest;
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
-import org.vertx.java.core.json.JsonObject;
-import org.vertx.java.platform.Container;
+import io.vertx.core.json.JsonObject;
+
 
 import fr.wseduc.rs.ApiDoc;
 import fr.wseduc.rs.Delete;
@@ -54,9 +54,9 @@ public class PollController extends MongoDbControllerHelper {
 	private enum PollEvent { ACCESS }
 
 	@Override
-	public void init(Vertx vertx, Container container, RouteMatcher rm,
+	public void init(Vertx vertx, JsonObject config, RouteMatcher rm,
 			Map<String, fr.wseduc.webutils.security.SecuredAction> securedActions) {
-		super.init(vertx, container, rm, securedActions);
+		super.init(vertx, config, rm, securedActions);
 		eventStore = EventStoreFactory.getFactory().getEventStore(Poll.class.getSimpleName());
 	}
 
@@ -158,10 +158,10 @@ public class PollController extends MongoDbControllerHelper {
                     }
 
                     JsonObject params = new JsonObject();
-                    params.putString("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
-                    .putString("username", user.getUsername())
-                    .putString("pollUri",  "/poll#/view/" + id);
-                    params.putString("resourceUri", params.getString("pollUri"));
+                    params.put("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
+                    .put("username", user.getUsername())
+                    .put("pollUri",  "/poll#/view/" + id);
+                    params.put("resourceUri", params.getString("pollUri"));
 
                     shareJsonSubmit(request, "poll.share", false, params, "question");
                 }
