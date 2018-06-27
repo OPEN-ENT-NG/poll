@@ -176,4 +176,31 @@ public class PollController extends MongoDbControllerHelper {
         removeShare(request, false);
     }
 
+    @Put("/share/resource/:id")
+    @ApiDoc("Allows to update the current sharing of the poll given by its identifier")
+    @SecuredAction(value = "poll.manager", type = ActionType.RESOURCE)
+    public void shareResource(final HttpServerRequest request) {
+        UserUtils.getUserInfos(eb, request, new Handler<UserInfos>() {
+            @Override
+            public void handle(final UserInfos user) {
+                if (user != null) {
+                    final String id = request.params().get("id");
+                    if(id == null || id.trim().isEmpty()) {
+                        badRequest(request, "invalid.id");
+                        return;
+                    }
+
+                    JsonObject params = new JsonObject();
+                    params.put("uri", "/userbook/annuaire#" + user.getUserId() + "#" + user.getType())
+                            .put("username", user.getUsername())
+                            .put("pollUri",  "/poll#/view/" + id);
+                    params.put("resourceUri", params.getString("pollUri"));
+
+                    shareResource(request, "poll.share", false, params, "question");
+                }
+            }
+        });
+    }
+
+
 }
