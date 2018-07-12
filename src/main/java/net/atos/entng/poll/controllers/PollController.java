@@ -21,6 +21,7 @@ package net.atos.entng.poll.controllers;
 
 import java.util.Map;
 
+import fr.wseduc.webutils.I18n;
 import net.atos.entng.poll.Poll;
 
 import org.entcore.common.events.EventStore;
@@ -162,6 +163,14 @@ public class PollController extends MongoDbControllerHelper {
                     .put("username", user.getUsername())
                     .put("pollUri",  "/poll#/view/" + id);
                     params.put("resourceUri", params.getString("pollUri"));
+                    params.put("pushNotif", new JsonObject().put("title", "poll.notification.shared")
+                            .put("body", I18n.getInstance()
+                                    .translate(
+                                            "poll.notification.shared.two",
+                                            getHost(request),
+                                            I18n.acceptLanguage(request),
+                                            user.getUsername()
+                                    )));
 
                     shareJsonSubmit(request, "poll.share", false, params, "question");
                 }
