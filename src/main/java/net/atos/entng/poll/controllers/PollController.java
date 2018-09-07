@@ -204,6 +204,14 @@ public class PollController extends MongoDbControllerHelper {
                             .put("username", user.getUsername())
                             .put("pollUri",  "/poll#/view/" + id);
                     params.put("resourceUri", params.getString("pollUri"));
+                    params.put("pushNotif", new JsonObject().put("title", "poll.notification.shared")
+                            .put("body", I18n.getInstance()
+                                    .translate(
+                                            "poll.notification.shared.two",
+                                            getHost(request),
+                                            I18n.acceptLanguage(request),
+                                            user.getUsername()
+                                    )));
 
                     shareResource(request, "poll.share", false, params, "question");
                 }
