@@ -19,7 +19,6 @@
     "poll.share" : "Partager",
     "poll.delete" : "Supprimer",	
     "poll.read": "Lecteur",
-    "poll.contrib": "Contributeur",
     "poll.manager": "Gestionnaire",
     "poll.contrib": "Votant",
     "poll.submitted": "Les sondages que j’ai lancés",
