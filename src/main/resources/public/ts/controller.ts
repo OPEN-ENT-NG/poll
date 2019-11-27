@@ -136,17 +136,18 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
      * Allows to save the current edited poll in the scope. After saving the
      * current poll this method closes the edit view too.
      */
-    $scope.savePoll = function() {
-        $scope.master = angular.copy($scope.poll);
-        $scope.master.save(function() {
-            $scope.polls.sync(function() {
-                $scope.cancelPollEdit();
-                updateSearchBar();
-                $scope.$apply();
+    $scope.savePoll = function(): Promise<void> {
+        return new Promise<void>(function(resolve, reject) {
+            resolve();
+            $scope.master = angular.copy($scope.poll);
+            $scope.master.save(function () {
+                $scope.polls.sync(function () {
+                    $scope.cancelPollEdit();
+                    updateSearchBar();
+                    $scope.$apply();
+                });
             });
         });
-       
-        
     };
 
     /**
