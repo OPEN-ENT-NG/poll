@@ -14,7 +14,7 @@
     </a>
 
     <article class="twelve cell">
-        <form name="form">
+        <form name="form" guard-root>
 
             <!-- Images -->
             <div class="twelve cell">
@@ -26,7 +26,7 @@
 
             <!-- Question -->
             <label class="twelve cell"><i18n>poll.question</i18n></label>
-            <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required />
+            <input class="twelve cell" type="text" ng-model="poll.question" ng-disabled="totalVotes > 0" required input-guard/>
 
             <!-- End -->
             <label class="twelve cell"><i18n>poll.end</i18n></label>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="square-menu-actions">
-                    <input class="twelve cell" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" maxlength="75" required />
+                    <input class="twelve cell" type="text" ng-model="answer.value" ng-disabled="totalVotes > 0" maxlength="75" required input-guard/>
                 </div>
             </div>
             <button class="vertical-spacing-twice cell right-magnet" ng-hide="totalVotes > 0" ng-click="addNewAnswer()">
@@ -58,10 +58,10 @@
 
             <!-- Controls -->
             <div class="vertical-spacing-twice twelve cell">
-                <button class="right-magnet" ng-click="savePoll()" ng-disabled="form.$invalid">
+                <button class="right-magnet" reset-guard="savePoll()" ng-disabled="form.$invalid">
                     <i18n>save</i18n>
                 </button>
-                <input type="button" class="cancel right-magnet" i18n-value="cancel" ng-click="cancelPollEdit()" />
+                <input type="button" class="cancel right-magnet" i18n-value="cancel" navigation-trigger="cancelPollEdit()" />
             </div>
         </form>
     </article>

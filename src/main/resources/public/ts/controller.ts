@@ -1,4 +1,4 @@
-import { http, template, routes, model, moment, $, _, angular, ng } from 'entcore'; 
+import { http, template, routes, model, moment, $, _, angular, ng } from 'entcore';
 import { pollModel, answerModel } from './model';
 
 /**
@@ -7,10 +7,10 @@ import { pollModel, answerModel } from './model';
 routes.define(function($routeProvider){
     $routeProvider
         .when('/view/:pollId', {
-        action: 'displayFullScreen'
+            action: 'displayFullScreen'
         }).when('/', {
         action: 'mainPage'
-        })
+    })
         .otherwise({redirectTo:'/'})
 });
 
@@ -32,7 +32,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     $scope.selectedAnswer = 0;
     $scope.notFound = false;
 
-    
+
     route({
         displayFullScreen: function(params) {
             $scope.polls.one('sync', function() {
@@ -43,13 +43,13 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             });
         },
         mainPage: function() {
-             // By default open the polls list
+            // By default open the polls list
 
             template.open('main', 'poll-list');
             template.open('side-panel', 'side-panel');
         }
     });
-    
+
 
     /**
      * Allows to open the given poll into the "main" div using the
@@ -62,7 +62,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             console.log('not found');
             template.open('main', 'poll-view');
             template.close('polls');
-        }else{ 
+        }else{
             $scope.notFound = false;
             $scope.poll = poll;
             $scope.hideAlmostAllButtons(poll);
@@ -72,7 +72,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             template.close('polls');
         }
     };
-    
+
     /**
      * Allows to create a new poll and open the "poll-edit.html" template into
      * the "main" div. By default, the end of the poll is set to now + 7.
@@ -105,7 +105,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         event.stopPropagation();
         template.open('main', 'poll-edit');
     };
-    
+
     /**
      * Allows to set "showButtons" to false for all polls except the given one.
      * @param poll the current selected poll.
@@ -117,18 +117,17 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             }
         });
     };
-    
+
     /**
      * Allows to cancel the current poll edition. This method removes the "poll"
      * variable and close the "main" template.
      */
     $scope.cancelPollEdit = function() {
-        delete $scope.master;
-        delete $scope.poll;
+        template.open('main', 'poll-list');
         $scope.hideAlmostAllButtons();
         $scope.pollmodeview = false;
-        template.close('main');
-        template.open('main', 'poll-list');
+        delete $scope.master;
+        delete $scope.poll;
         $scope.polls.sync();
     };
 
@@ -136,17 +135,18 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
      * Allows to save the current edited poll in the scope. After saving the
      * current poll this method closes the edit view too.
      */
-    $scope.savePoll = function() {
-        $scope.master = angular.copy($scope.poll);
-        $scope.master.save(function() {
-            $scope.polls.sync(function() {
-                $scope.cancelPollEdit();
-                updateSearchBar();
-                $scope.$apply();
+    $scope.savePoll = function(): Promise<void> {
+        return new Promise<void>(function(resolve, reject) {
+            resolve();
+            $scope.master = angular.copy($scope.poll);
+            $scope.master.save(function () {
+                $scope.polls.sync(function () {
+                    $scope.cancelPollEdit();
+                    updateSearchBar();
+                    $scope.$apply();
+                });
             });
         });
-       
-        
     };
 
     /**
@@ -160,14 +160,14 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         $scope.display.confirmDeletePoll = true;
         event.stopPropagation();
     };
-    
+
     /**
      * Allows to cancel the current delete process.
      */
     $scope.cancelRemovePoll = function() {
         delete $scope.display.confirmDeletePoll;
     };
-    
+
     /**
      * Allows to remove the current poll in the scope.
      */
@@ -177,7 +177,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         delete $scope.poll;
         template.close('main');
     };
-    
+
     /**
      * Allows to open the "share" panel by setting the
      * "$scope.display.showPanel" variable to "true".
@@ -207,14 +207,14 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
      * @param index the index of the answer to remove of the list
      */
     $scope.removeAnswer = function(index) {
-        if ($scope.poll != null) {  
+        if ($scope.poll != null) {
             var answers = $scope.poll.answers;
             if (answers != null && index >= 0 && index < answers.length) {
                 answers.splice(index, 1);
             }
         }
     };
-    
+
     /**
      * Allows to move up the answer given by its index.
      * @param index the index of the answer to move up.
@@ -229,7 +229,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             }
         }
     }
-    
+
     /**
      * Allows to move down the answer given by its index.
      * @param index the index of the answer to move down.
@@ -244,7 +244,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             }
         }
     }
-    
+
     /**
      * Allows to get if the given poll has expired.
      * @param p a poll to test.
@@ -255,10 +255,10 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Return true if current the user already voted
-    * @param p a poll to test
-    * @return true if the current user already voted
-    */
+     * Return true if current the user already voted
+     * @param p a poll to test
+     * @return true if the current user already voted
+     */
     $scope.hasAlreadyVoted = function (p) {
         if (p && p.answers) {
             for (var i = 0; i < p.answers.length; i++) {
@@ -276,10 +276,10 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Allows an user to vote for seleted poll
-    * @param vote index' answer
-    *
-    */
+     * Allows an user to vote for seleted poll
+     * @param vote index' answer
+     *
+     */
     $scope.vote = function(vote){
         if($scope.poll.answers[vote].votes === undefined){
             $scope.poll.answers[vote].votes = [];
@@ -291,7 +291,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         $scope.totalVotes++;
 
     };
-    
+
     /**
      * Allows to get the total number of votes of the given poll.
      * @param poll a poll.
@@ -311,27 +311,27 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Get all pool submitted by the current user
-    *
-    */
+     * Get all pool submitted by the current user
+     *
+     */
     $scope.getPollsSubmitted = function(){
         getPollsSorted();
         return $scope.myPolls;
     };
 
     /**
-    * Get all poll unanswered and shared to the current user 
-    *
-    */
+     * Get all poll unanswered and shared to the current user
+     *
+     */
     $scope.getPollsUnanswered = function(){
         return $scope.pollsUnanswered;
-       
+
     };
 
     /**
-    * Get all poll answered
-    *
-    */
+     * Get all poll answered
+     *
+     */
     $scope.getPollsAnswered = function(){
         return $scope.pollsFinished;
     };
@@ -339,7 +339,7 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
         return poll && poll.myRights.manage;
     };
 
-     /**
+    /**
      * Allows to put the current poll in the scope and set "confirmDeletePoll"
      * variable to "true".
      * @param poll the poll to delete.
@@ -351,8 +351,8 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Allows to remove several polls
-    */
+     * Allows to remove several polls
+     */
     $scope.removePolls = function(){
         let pollsToRemove = $scope.polls.filter(p => p.selected == true);
         _.each(pollsToRemove, function(pollToRemove){
@@ -387,15 +387,15 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
                     }
                 };
 
-           });
+            });
         });
     };
     updateSearchBar();
 
     /**
-    * Open poll from a searchbar
-    * @param poll's id
-    */
+     * Open poll from a searchbar
+     * @param poll's id
+     */
     $scope.openPollFromSearchbar = function(pollId){
         //window.location.hash = '/view/' + pollId;
         $scope.openPoll($scope.getPollById(pollId));
@@ -403,17 +403,17 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Check if an user ar editing a poll.
-    */
+     * Check if an user ar editing a poll.
+     */
     $scope.isCreatingOrEditing = function(){
-            return (template.contains('main', 'poll-edit'));
+        return (template.contains('main', 'poll-edit'));
     };
 
     /**
-    * Get a poll with an id
-    * @param Poll._id
-    * @return poll
-    */
+     * Get a poll with an id
+     * @param Poll._id
+     * @return poll
+     */
     $scope.getPollById = function(pollId){
         return _.find(pollModel.polls.all, function(poll){
             return poll._id === pollId;
@@ -421,9 +421,9 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
     };
 
     /**
-    * Get poll sorted 
-    *
-    */
+     * Get poll sorted
+     *
+     */
     var getPollsSorted = function(){
         var isAnswered;
         $scope.pollsFinished = [];
@@ -443,11 +443,11 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
                         }
                     });
                     if(isAnswered){
-                       $scope.pollsFinished.push(poll);
+                        $scope.pollsFinished.push(poll);
                     }else{
-                       $scope.pollsUnanswered.push(poll);
+                        $scope.pollsUnanswered.push(poll);
                     }
-                }  
+                }
             }else{
                 if(poll.owner.userId !=$scope.me.userId){
                     $scope.pollsFinished.push(poll);
@@ -458,5 +458,5 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             }
         });
     };
-    
+
 }]);
