@@ -123,12 +123,11 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
      * variable and close the "main" template.
      */
     $scope.cancelPollEdit = function() {
-        delete $scope.master;
-        delete $scope.poll;
+        template.open('main', 'poll-list');
         $scope.hideAlmostAllButtons();
         $scope.pollmodeview = false;
-        template.close('main');
-        template.open('main', 'poll-list');
+        delete $scope.master;
+        delete $scope.poll;
         $scope.polls.sync();
     };
 
