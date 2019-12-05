@@ -141,7 +141,9 @@ export let pollController =  ng.controller('PollController', ['$scope', 'route',
             $scope.master = angular.copy($scope.poll);
             $scope.master.save(function () {
                 $scope.polls.sync(function () {
-                    $scope.cancelPollEdit();
+                    setTimeout(function () {
+                        $scope.cancelPollEdit();
+                    }, 500);
                     updateSearchBar();
                     $scope.$apply();
                 });
