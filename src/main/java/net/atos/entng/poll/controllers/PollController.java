@@ -24,6 +24,7 @@ import java.util.Map;
 import fr.wseduc.webutils.I18n;
 import net.atos.entng.poll.Poll;
 
+import org.entcore.common.events.EventHelper;
 import org.entcore.common.events.EventStore;
 import org.entcore.common.events.EventStoreFactory;
 import org.entcore.common.mongodb.MongoDbControllerHelper;
@@ -50,15 +51,13 @@ import fr.wseduc.webutils.request.RequestUtils;
  * @author Atos
  */
 public class PollController extends MongoDbControllerHelper {
-
-	private EventStore eventStore;
-	private enum PollEvent { ACCESS }
+    static final String RESOURCE_NAME = "poll";
+	private EventHelper eventHelper;
 
 	@Override
 	public void init(Vertx vertx, JsonObject config, RouteMatcher rm,
 			Map<String, fr.wseduc.webutils.security.SecuredAction> securedActions) {
 		super.init(vertx, config, rm, securedActions);
-		eventStore = EventStoreFactory.getFactory().getEventStore(Poll.class.getSimpleName());
 	}
 
     /**
@@ -67,6 +66,8 @@ public class PollController extends MongoDbControllerHelper {
      */
     public PollController(String collection) {
         super(collection);
+        final EventStore eventStore = EventStoreFactory.getFactory().getEventStore(Poll.class.getSimpleName());
+        this.eventHelper = new EventHelper(eventStore);
     }
 
     @Get("")
@@ -75,7 +76,7 @@ public class PollController extends MongoDbControllerHelper {
         renderView(request);
 
 		// Create event "access to application Poll" and store it, for module "statistics"
-		eventStore.createAndStoreEvent(PollEvent.ACCESS.name(), request);
+		eventHelper.onAccess(request);
     }
 
     @Override
@@ -95,7 +96,11 @@ public class PollController extends MongoDbControllerHelper {
 
             @Override
             public void handle(JsonObject event) {
-                PollController.super.create(request);
+                PollController.super.create(request, r -> {
+                    if(r.succeeded()){
+                        eventHelper.onCreateResource(request, RESOURCE_NAME);
+                    }
+                });
             }
         });
     }
