@@ -34,7 +34,7 @@ public class PollRepositoryEvents extends MongoDbRepositoryEvents {
     }
 
     @Override
-    public void exportResources(JsonArray resourcesIds, String exportId, String userId,
+    public void exportResources(JsonArray resourcesIds, boolean exportDocuments, boolean exportSharedResources, String exportId, String userId,
             JsonArray groups, String exportPath, String locale, String host, final Handler<Boolean> handler) {
         // TODO
         log.warn("Method exportResources is not implemented in PollRepositoryEvents");
