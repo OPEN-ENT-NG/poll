@@ -1,5 +1,5 @@
   	{
-      "name": "net.atos~poll~1.13.1",
+      "name": "net.atos~poll~1.13.2",
       "config": {
         "main" : "net.atos.entng.poll.Poll",
         "port" : 8070,
