@@ -38,3 +38,6 @@ developer.id
 node_modules
 **/js
 gradle*
+
+.env
+dependency-reduced-pom.xml

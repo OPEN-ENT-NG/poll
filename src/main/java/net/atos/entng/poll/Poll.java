@@ -28,6 +28,9 @@ import org.entcore.common.http.filter.ShareAndOwner;
 import org.entcore.common.mongodb.MongoDbConf;
 import org.entcore.common.service.impl.MongoDbSearchService;
 
+import io.vertx.core.Promise;
+
+
 /**
  * Server to manage polls. This class is the entry point of the Vert.x module.
  * @author Atos
@@ -43,8 +46,8 @@ public class Poll extends BaseServer {
      * Entry point of the Vert.x module
      */
     @Override
-    public void start() throws Exception {
-        super.start();
+    public void start(final Promise<Void> startPromise) throws Exception {
+        super.start(startPromise);
         // Set RepositoryEvents implementation used to process events published for transition
         setRepositoryEvents(new PollRepositoryEvents());
 
@@ -58,6 +61,7 @@ public class Poll extends BaseServer {
 
         setDefaultResourceFilter(new ShareAndOwner());
         addController(new PollController(POLL_COLLECTION));
+        startPromise.tryComplete();
     }
 
 }
