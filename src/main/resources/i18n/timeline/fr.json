@@ -1,6 +1,6 @@
 {
-    "poll": "Sondage",
-    "poll.share": "Partage d'un sondage",
-    "timeline.poll.has.shared": "vous a partagé le sondage",
-    "poll.notification.shared": "Sondage: Un sondage vous a été partagé"
+  "poll": "Sondage",
+  "poll.notification.shared": "Sondage: Un sondage vous a été partagé",
+  "poll.share": "Partage d'un sondage",
+  "timeline.poll.has.shared": "vous a partagé le sondage"
 }
