@@ -1,7 +1,7 @@
 # À propos de l'application Sondages
 
 * Licence : [AGPL v3](http://www.gnu.org/licenses/agpl.txt) - Copyright Région Hauts-de-France (ex Picardie), Département de l'Essonne, Région Nouvelle Aquitaine (ex Poitou-Charentes)
-* Développeur(s) : ATOS, CGI, Open Digital Education
+* Développeur(s) : ATOS, CGI, Edifice
 * Financeur(s) : Région Hauts-de-France (ex Picardie), Département de l'Essonne, Région Nouvelle Aquitaine (ex Poitou-Charentes)
 * Description : Application d'administration et de diffusion de sondages simples. L'application permet de collecter les réponses aux sondages et d'afficher les résultats sous forme de graphique.
 
