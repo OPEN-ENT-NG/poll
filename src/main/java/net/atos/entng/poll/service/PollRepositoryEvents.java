@@ -24,6 +24,8 @@ import io.vertx.core.Handler;
 import io.vertx.core.json.JsonArray;
 
 import fr.wseduc.mongodb.MongoDb;
+import org.entcore.common.user.ExportResourceResult;
+
 
 public class PollRepositoryEvents extends MongoDbRepositoryEvents {
 
@@ -35,7 +37,7 @@ public class PollRepositoryEvents extends MongoDbRepositoryEvents {
 
     @Override
     public void exportResources(JsonArray resourcesIds, boolean exportDocuments, boolean exportSharedResources, String exportId, String userId,
-            JsonArray groups, String exportPath, String locale, String host, final Handler<Boolean> handler) {
+            JsonArray groups, String exportPath, String locale, String host, final Handler<ExportResourceResult> handler) {
         // TODO
         log.warn("Method exportResources is not implemented in PollRepositoryEvents");
     }

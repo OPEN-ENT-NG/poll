@@ -19,6 +19,7 @@
 
 package net.atos.entng.poll;
 
+import io.vertx.core.Future;
 import net.atos.entng.poll.controllers.PollController;
 import net.atos.entng.poll.service.PollRepositoryEvents;
 
@@ -47,7 +48,14 @@ public class Poll extends BaseServer {
      */
     @Override
     public void start(final Promise<Void> startPromise) throws Exception {
-        super.start(startPromise);
+      final Promise<Void> promise = Promise.promise();
+      super.start(promise);
+      promise.future()
+        .compose(e -> this.initPoll())
+        .onComplete(startPromise);
+    }
+
+    public Future<Void> initPoll() {
         // Set RepositoryEvents implementation used to process events published for transition
         setRepositoryEvents(new PollRepositoryEvents());
 
@@ -60,8 +68,7 @@ public class Poll extends BaseServer {
         conf.setResourceIdLabel("id");
 
         setDefaultResourceFilter(new ShareAndOwner());
-        addController(new PollController(POLL_COLLECTION));
-        startPromise.tryComplete();
+        return addController(new PollController(POLL_COLLECTION)).mapEmpty();
     }
 
 }
