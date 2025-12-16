@@ -1,0 +1,21 @@
+{
+  "name": "net.atos~poll",
+  "config": {
+    "main" : "net.atos.entng.poll.Poll",
+    "port" : 8070,
+    "csrf-token": {{ csrfToken | default('true') }},
+    "app-name" : "Poll",
+    "app-address" : "/poll",
+    "app-icon" : "poll-large",
+    "app-type" : "END_USER",
+    "auto-redeploy": false,
+    {% if overrideTheme %} "override-theme": {{ override2d }}, {% endif %}
+    "host": "https://{{ host }}",
+    "ssl" : true,
+    "userbook-host": "https://{{ host }}",
+    "integration-mode": "{{ integration_mode|default('HTTP') }}",
+    "app-registry.port" : 8012,
+    "mode" : "prod",
+    "entcore.port" : 8009
+  }
+}
