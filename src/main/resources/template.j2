@@ -2,6 +2,10 @@
   "name": "net.atos~poll",
   "config": {
     "main" : "net.atos.entng.poll.Poll",
+    "probes": [
+      "org.entcore.common.http.health.Neo4jProbe",
+      "org.entcore.common.http.health.MongoProbe"
+    ],
     "port" : 8070,
     "csrf-token": {{ csrfToken | default('true') }},
     "app-name" : "Poll",
