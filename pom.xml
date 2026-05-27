@@ -29,7 +29,7 @@
     <vertx-cron-timer.version>3.0-SNAPSHOT</vertx-cron-timer.version>
     <modMongoVersion>4.1-SNAPSHOT</modMongoVersion>
     <modJsonSchemaValidatorVersion>2.1-SNAPSHOT</modJsonSchemaValidatorVersion>
-    <entCoreLibsVersion>6.14-separation-SNAPSHOT</entCoreLibsVersion>
+    <entCoreLibsVersion>6.14-SNAPSHOT</entCoreLibsVersion>
     <entCoreVersion>6.14-SNAPSHOT</entCoreVersion>
   </properties>
   <dependencies>
